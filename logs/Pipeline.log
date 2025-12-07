@@ -1,0 +1,12 @@
+2025-12-07 21:00:43,387 - INFO - Logging initialize successfully
+2025-12-07 21:00:43,522 - INFO - Loaded 29000 rows for split='train'.
+2025-12-07 21:00:44,864 - INFO - Built 29000 samples from annotaions
+2025-12-07 21:00:44,865 - INFO - Total samples: 29000
+2025-12-07 21:03:51,037 - INFO - Logging initialize successfully
+2025-12-07 21:03:51,172 - INFO - Loaded 29000 rows for split='train'.
+2025-12-07 21:03:52,497 - INFO - Built 29000 samples from annotaions
+2025-12-07 21:03:52,498 - INFO - Total samples: 29000
+2025-12-07 21:04:50,218 - INFO - Logging initialize successfully
+2025-12-07 21:04:50,338 - INFO - Loaded 29000 rows for split='train'.
+2025-12-07 21:04:51,637 - INFO - Built 29000 samples from annotaions
+2025-12-07 21:04:51,639 - INFO - Total samples: 29000
