@@ -1,0 +1,3 @@
+paths:
+  annotations_csv: "data/raw/flickr_annotations_30k.csv"
+  images_dir: "data/raw/flickr30k-images"
