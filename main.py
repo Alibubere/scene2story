@@ -6,6 +6,7 @@ from src.data_prep.flickr_loader import (
     build_samples_list,
     parse_captions_column,
 )
+from src.data_prep.story_generator import caption_to_story
 
 
 def logging_setup():
@@ -29,7 +30,7 @@ def main():
     
     with open("configs/config.yaml", "r") as f:
         config = yaml.safe_load(f)
-        
+
     # paths config
     paths = config["paths"]
     csv_path = paths["annotations_csv"]
@@ -51,6 +52,9 @@ def main():
         print("Captions:")
         for c in s["captions"]:
             print("  -", c)
+            story = caption_to_story(caption=c)
+            print("Storys:")
+            print(story)
 
 
 if __name__ == "__main__":

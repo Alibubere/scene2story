@@ -1,7 +1,7 @@
 from typing import List, Dict
 import random
 
-mood = [
+moods = [
     "calm",
     "cheerful",
     "tense",
@@ -41,6 +41,7 @@ atmosphere_endings = [
     "in a stillness that felt both fragile and absolute",
 ]
 
+
 def caption_to_story(caption: str) -> str:
     """
     Convert a single caption into a short 2-3 sentence story.
@@ -53,7 +54,19 @@ def caption_to_story(caption: str) -> str:
     5. Build sentence 2 to create atmosphere.
     6. Return the combined story string.
     """
-    raise NotImplementedError("caption_to_story() logic not implemented yet.")
+    if caption:
+        if not caption[0].isupper():
+            caption = caption[0].upper() + caption[1:]
+
+    caption = caption.strip()
+
+    sentence1 = caption.strip(".") + " " + random.choice(atmosphere_endings).strip(".")
+
+    sentence2 = f"In the background, the {random.choice(environment_words)} feels {random.choice(moods)} {random.choice(time_of_day)}"
+
+    story = sentence1 + "." + " " + sentence2
+
+    return story
 
 
 def build_story_dataset(samples: List[Dict]) -> List[Dict]:
