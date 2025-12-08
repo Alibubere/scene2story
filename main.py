@@ -6,7 +6,7 @@ from src.data_prep.flickr_loader import (
     build_samples_list,
     parse_captions_column,
 )
-from src.data_prep.story_generator import caption_to_story
+from src.data_prep.story_generator import caption_to_story, build_story_dataset
 
 
 def logging_setup():
@@ -25,9 +25,10 @@ def logging_setup():
     )
     logging.info("Logging initialize successfully")
 
+
 def main():
     logging_setup()
-    
+
     with open("configs/config.yaml", "r") as f:
         config = yaml.safe_load(f)
 
@@ -41,20 +42,12 @@ def main():
     split = data["use_split"]
     num_preview = data["num_preview"]
 
-    df = load_flickr_annotations(csv_path=csv_path,split=split)
+    df = load_flickr_annotations(csv_path=csv_path, split=split)
     df = parse_captions_column(df)
-    samples = build_samples_list(df,images_dir)
+    samples = build_samples_list(df, images_dir)
     logging.info(f"Total samples: {len(samples)}")
-    for i in range(min(num_preview, len(samples))):
-        s = samples[i]
-        print("-" * 40)
-        print("Image path:", s["image_path"])
-        print("Captions:")
-        for c in s["captions"]:
-            print("  -", c)
-            story = caption_to_story(caption=c)
-            print("Storys:")
-            print(story)
+    story = build_story_dataset(samples=samples)
+    print(story[0])
 
 
 if __name__ == "__main__":

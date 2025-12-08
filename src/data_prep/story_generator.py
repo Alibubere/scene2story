@@ -1,5 +1,6 @@
-from typing import List, Dict
+from typing import List, Dict, Any
 import random
+import logging
 
 moods = [
     "calm",
@@ -84,4 +85,20 @@ def build_story_dataset(samples: List[Dict]) -> List[Dict]:
             'story': ...
         }
     """
-    raise NotImplementedError("build_story_dataset() logic not implemented yet.")
+    new_samples: List[Dict[str, Any]] = []
+
+    for sample in samples:
+        image_path = sample["image_path"]
+        random_caption = random.choice(sample["captions"])
+        story = caption_to_story(random_caption)
+
+        new_dict: Dict[str, Any] = {
+            "image_path": image_path,
+            "caption": random_caption,
+            "story": story,
+        }
+        new_samples.append(new_dict)
+
+    logging.info(f"Built {len(new_samples)} samples for story ")
+
+    return new_samples
