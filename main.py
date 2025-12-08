@@ -7,9 +7,6 @@ from src.data_prep.flickr_loader import (
     parse_captions_column,
 )
 
-with open("configs/config.yaml", "r") as f:
-    config = yaml.safe_load(f)
-
 
 def logging_setup():
 
@@ -29,7 +26,10 @@ def logging_setup():
 
 def main():
     logging_setup()
-
+    
+    with open("configs/config.yaml", "r") as f:
+        config = yaml.safe_load(f)
+        
     # paths config
     paths = config["paths"]
     csv_path = paths["annotations_csv"]
