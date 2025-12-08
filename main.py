@@ -8,6 +8,7 @@ from src.data_prep.flickr_loader import (
 )
 from src.data_prep.story_generator import build_story_dataset
 from src.data_prep.save_story_dataset import save_clean_dataset
+from src.data_prep.dataset import StoryImageDataset
 
 
 def logging_setup():
@@ -47,12 +48,21 @@ def main():
     clean_path = config["clean_paths"]
     save_dir = clean_path["save_dir"]
 
+    train_data_path = "data/processed/stories_train.jsonl"
+
     df = load_flickr_annotations(csv_path=csv_path, split=split)
     df = parse_captions_column(df)
     samples = build_samples_list(df, images_dir)
     logging.info(f"Total samples: {len(samples)}")
     stories = build_story_dataset(samples=samples)
-    save_clean_dataset(stories,save_dir,split=split)
+    save_clean_dataset(stories, save_dir, split)
+    dataset = StoryImageDataset(train_data_path)
+    print(len(dataset))
+
+    img, story = dataset[0]
+    print(img.shape)  # should be torch.Size([3, 224, 224])
+    print(story)
+
 
 if __name__ == "__main__":
     main()
