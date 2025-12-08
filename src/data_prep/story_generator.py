@@ -90,12 +90,16 @@ def build_story_dataset(samples: List[Dict]) -> List[Dict]:
     for sample in samples:
         image_path = sample["image_path"]
         random_caption = random.choice(sample["captions"])
+        img_id = sample["img_id"]
+        split = sample["split"]
         story = caption_to_story(random_caption)
 
         new_dict: Dict[str, Any] = {
             "image_path": image_path,
             "caption": random_caption,
             "story": story,
+            "img_id": img_id,
+            "split": split,
         }
         new_samples.append(new_dict)
 

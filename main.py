@@ -6,7 +6,8 @@ from src.data_prep.flickr_loader import (
     build_samples_list,
     parse_captions_column,
 )
-from src.data_prep.story_generator import caption_to_story, build_story_dataset
+from src.data_prep.story_generator import build_story_dataset
+from src.data_prep.save_story_dataset import save_clean_dataset
 
 
 def logging_setup():
@@ -42,13 +43,16 @@ def main():
     split = data["use_split"]
     num_preview = data["num_preview"]
 
+    # clean path config
+    clean_path = config["clean_paths"]
+    save_dir = clean_path["save_dir"]
+
     df = load_flickr_annotations(csv_path=csv_path, split=split)
     df = parse_captions_column(df)
     samples = build_samples_list(df, images_dir)
     logging.info(f"Total samples: {len(samples)}")
-    story = build_story_dataset(samples=samples)
-    print(story[0])
-
+    stories = build_story_dataset(samples=samples)
+    save_clean_dataset(stories,save_dir,split=split)
 
 if __name__ == "__main__":
     main()

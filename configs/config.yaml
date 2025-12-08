@@ -5,3 +5,6 @@ paths:
 data:
   use_split: "train"   # 'train', 'val', 'test', or 'all'
   num_preview: 3  
+
+clean_paths:
+  save_dir: "data/processed"
