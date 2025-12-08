@@ -199,3 +199,9 @@
 2025-12-08 15:40:15,727 - INFO - Total samples: 29000
 2025-12-08 15:40:15,819 - INFO - Built 29000 samples for story 
 2025-12-08 15:40:15,966 - INFO - Cleaned data saved to data/processed\stories_train.jsonl
+2025-12-08 17:18:21,274 - INFO - Logging initialize successfully
+2025-12-08 17:18:21,417 - INFO - Loaded 1000 rows for split='test'.
+2025-12-08 17:18:21,475 - INFO - Built 1000 samples from annotaions
+2025-12-08 17:18:21,475 - INFO - Total samples: 1000
+2025-12-08 17:18:21,478 - INFO - Built 1000 samples for story 
+2025-12-08 17:18:21,478 - INFO - Cleaned data saved to data/processed\stories_test.jsonl
