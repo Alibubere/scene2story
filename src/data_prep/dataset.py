@@ -51,8 +51,8 @@ class StoryImageDataset(Dataset):
             raise RuntimeError(f"Could not load image at path: {image_path}")
 
         token_data = tokenize_story(self.tokenizer, story=story)
-        text_ids = token_data["input_ids"].view(-1)
-        text_mask = token_data["attention_mask"].view(-1)
+        text_ids = token_data["input_ids"]
+        text_mask = token_data["attention_mask"]
 
         img_token_tensor = torch.tensor([self.image_token_id], dtype=torch.long)
         mask_one_tensor = torch.tensor([1], dtype=torch.long)
