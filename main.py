@@ -9,7 +9,7 @@ from src.data_prep.flickr_loader import (
 from src.data_prep.story_generator import build_story_dataset
 from src.data_prep.save_story_dataset import save_clean_dataset
 from src.data_prep.dataset import StoryImageDataset
-
+from src.text.tokenizer_utils import get_gpt2_tokenizer , tokenize_story
 
 def logging_setup():
 
@@ -57,11 +57,14 @@ def main():
     stories = build_story_dataset(samples=samples)
     save_clean_dataset(stories, save_dir, split)
     dataset = StoryImageDataset(train_data_path)
-    print(len(dataset))
+    img, input_ids, attn_mask, labels = dataset[0]
+    print(input_ids.shape)
+    print(attn_mask.shape)
+    print(labels.shape)
+    print(input_ids[:10])
+    print(labels[:10])
+    print(attn_mask[:10])
 
-    img, story = dataset[0]
-    print(img.shape)  # should be torch.Size([3, 224, 224])
-    print(story)
 
 
 if __name__ == "__main__":
