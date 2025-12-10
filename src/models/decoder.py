@@ -29,7 +29,7 @@ class ImageConditionedTransformerDecoder(nn.Module):
         self.image_projection = nn.Linear(2048, self.d_model)
         self.lm_head = nn.Linear(d_model, vocab_size)
 
-        decoder_layer = nn.TransformerDecoderLayer(
+        encoder_layer = nn.TransformerEncoderLayer(
             d_model=self.d_model,
             nhead=self.n_heads,
             dim_feedforward=self.dim_feedforward,
@@ -37,16 +37,10 @@ class ImageConditionedTransformerDecoder(nn.Module):
             batch_first=True,
         )
 
-        self.transformer_decoder = nn.TransformerDecoder(
-            decoder_layer=decoder_layer,
+        self.transformer = nn.TransformerEncoder(
+            encoder_layer=encoder_layer,
             num_layers=self.num_layers,
         )
-
-    def get_causal_mask(self, seq_len):
-
-        mask = torch.triu(torch.ones(seq_len, seq_len, dtype=torch.bool), diagonal=1)
-
-        return mask.masked_fill(mask, float("-inf"))
 
     def forward(
         self,
@@ -57,7 +51,7 @@ class ImageConditionedTransformerDecoder(nn.Module):
 
         batch_size, seq_len = input_ids.shape
 
-        token_emb = self.token_embedding(input_ids)
+        token_emb = self.token_embedding(input_ids) * (self.d_model ** 0.5)
         positions = torch.arange(0, seq_len, device=input_ids.device)
 
         position_emb = self.positional_embedding(positions)
@@ -75,17 +69,14 @@ class ImageConditionedTransformerDecoder(nn.Module):
         if attention_mask is not None:
 
             tgt_key_padding_mask = attention_mask == 0
-        else:
-            tgt_key_padding_mask =None
 
-        
-        padding = self.transformer_decoder(
-            tgt= embedding,
-            tgt_mask = tgt_mask,
-            tgt_key_padding_mask=tgt_key_padding_mask,
-            memory=None
+        else:
+            tgt_key_padding_mask = None
+
+        encoder_output = self.transformer(
+            src=embedding, mask=tgt_mask, src_key_padding_mask=tgt_key_padding_mask
         )
 
-        logits = self.lm_head(padding)
+        logits = self.lm_head(encoder_output)
 
         return logits

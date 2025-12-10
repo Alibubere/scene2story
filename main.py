@@ -1,6 +1,7 @@
 import yaml
 import logging
 import os
+import torch
 from src.data_prep.flickr_loader import (
     load_flickr_annotations,
     build_samples_list,
@@ -9,7 +10,10 @@ from src.data_prep.flickr_loader import (
 from src.data_prep.story_generator import build_story_dataset
 from src.data_prep.save_story_dataset import save_clean_dataset
 from src.data_prep.dataset import StoryImageDataset
-from src.text.tokenizer_utils import get_gpt2_tokenizer , tokenize_story
+from src.text.tokenizer_utils import get_gpt2_tokenizer
+from src.models.decoder import ImageConditionedTransformerDecoder
+from src.features.extract_image_features import get_pretrained_resnet50_encoder
+
 
 def logging_setup():
 
@@ -59,7 +63,7 @@ def main():
 
     train_data_path = "data/processed/stories_train.jsonl"
     tokenizer = get_gpt2_tokenizer()
-    vocab_size = tokenizer.vocab_size
+    vocab_size = len(tokenizer)
     df = load_flickr_annotations(csv_path=csv_path, split=split)
     df = parse_captions_column(df)
     samples = build_samples_list(df, images_dir)
@@ -69,13 +73,26 @@ def main():
     dataset = StoryImageDataset(train_data_path)
     img, input_ids, attn_mask, labels = dataset[0]
     print(input_ids.shape)
-    print(attn_mask.shape)
-    print(labels.shape)
-    print(input_ids[:10])
-    print(labels[:10])
-    print(attn_mask[:10])
-
-
+    
+    # Extract image features
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    resnet = get_pretrained_resnet50_encoder(device)
+    with torch.no_grad():
+        img_features = resnet(img.unsqueeze(0).to(device))
+    
+    input_ids = input_ids.unsqueeze(0).to(device)
+    attn_mask = attn_mask.unsqueeze(0).to(device)
+    model = ImageConditionedTransformerDecoder(
+        vocab_size=vocab_size,
+        d_model=d_model,
+        n_heads=n_heads,
+        num_layers=num_layers,
+        dim_feedforward=dim_feedforward,
+        max_seq_len=max_seq_len,
+        dropout=dropout,
+    ).to(device)
+    logits = model(img_features, input_ids, attn_mask)
+    print(logits.shape)
 
 if __name__ == "__main__":
     main()
