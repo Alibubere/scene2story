@@ -48,8 +48,18 @@ def main():
     clean_path = config["clean_paths"]
     save_dir = clean_path["save_dir"]
 
-    train_data_path = "data/processed/stories_train.jsonl"
+    # model config
+    model_config = config["model"]
+    d_model = model_config["d_model"]
+    n_heads = model_config["n_heads"]
+    num_layers = model_config["num_layers"]
+    dim_feedforward = model_config["dim_feedforward"]
+    max_seq_len = model_config["max_seq_len"]
+    dropout = model_config["dropout"]
 
+    train_data_path = "data/processed/stories_train.jsonl"
+    tokenizer = get_gpt2_tokenizer()
+    vocab_size = tokenizer.vocab_size
     df = load_flickr_annotations(csv_path=csv_path, split=split)
     df = parse_captions_column(df)
     samples = build_samples_list(df, images_dir)
