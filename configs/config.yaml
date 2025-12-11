@@ -16,3 +16,15 @@ model:
   dim_feedforward: 2048
   max_seq_len: 129
   dropout: 0.1
+
+training:
+  num_epochs: 20
+  batch_size: 4
+  lr: 0.005
+  weight_decay: 0.0005
+  num_workers: 4
+  resume_from_checkpoint: True
+
+checkpoint:
+  dir: checkpoints/
+  filename: model.pth

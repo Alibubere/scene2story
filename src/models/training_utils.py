@@ -1,7 +1,7 @@
 import torch
 import logging
-
-
+import os
+from typing import Union
 def get_optimizer(model, lr: float, weight_decay: float):
     """
     Returns a AdamW optimizer for the model
@@ -46,6 +46,8 @@ def save_checkpoint(
     """
     if path is None:
         raise FileNotFoundError(f"Path not found {path} for save checkpoint")
+    
+    os.makedirs(os.path.dirname(path),exist_ok=True)
 
     checkpoint = {
         "model_state": model.state_dict(),
@@ -69,7 +71,7 @@ def load_checkpoint(
     path: str,
     scheduler,
     scaler,
-    device: torch.device = "cuda",
+    device: Union[str,torch.device] = "cuda",
 ):
     """
     Loads a PyTorch checkpoint and restores model, optimizer, scheduler, and scaler state.
@@ -126,4 +128,10 @@ def load_checkpoint(
 
     logging.info(f"Checkpoint loaded from {path}. Resuming at epoch {epoch}. (Scheduler restored: {scheduler_restored}, Scaler restored: {scaler_restored})")
 
-    return model, optimizer, epoch , scheduler,scaler
+    return {
+        "model":model,
+        "optimizer":optimizer,
+        "epoch":epoch,
+        "scheduler":scheduler,
+        "scaler":scaler,
+    }

@@ -14,6 +14,7 @@ from src.text.tokenizer_utils import get_gpt2_tokenizer
 from src.models.decoder import ImageConditionedTransformerDecoder
 from src.features.extract_image_features import get_pretrained_resnet50_encoder
 from src.data_prep.dataloader import get_dataloader
+from src.models.training_utils import get_optimizer , get_lr_scheduler
 
 def logging_setup():
 
@@ -61,6 +62,23 @@ def main():
     max_seq_len = model_config["max_seq_len"]
     dropout = model_config["dropout"]
 
+    # Training config
+    training_config = config["training"]
+    num_epochs = training_config["num_epochs"]
+    batch_size = training_config["batch_size"]
+    lr = training_config["lr"]
+    weight_decay = training_config["weight_decay"]
+    num_workers = training_config["num_workers"]
+    resume = training_config["resume_from_checkpoint"]
+
+    # Checkpoint config
+    checkpoint = config["checkpoint"]
+    checkpoint_dir = checkpoint["dir"]
+    filename = checkpoint["filename"]
+    full_path = os.path.join(checkpoint_dir,filename)
+    os.makedirs(checkpoint_dir,exist_ok=True)
+
+
     train_data_path = "data/processed/stories_train.jsonl"
     tokenizer = get_gpt2_tokenizer()
     vocab_size = len(tokenizer)
@@ -72,7 +90,6 @@ def main():
     save_clean_dataset(stories, save_dir, split)
     dataset = StoryImageDataset(train_data_path)
     
-    # Extract image features
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     resnet = get_pretrained_resnet50_encoder(device)
 
@@ -89,22 +106,20 @@ def main():
     # sanity check one batch
     loader = get_dataloader(
     dataset,
-    batch_size=4,
+    batch_size=batch_size,
     shuffle=True,
-    num_workers=0,   # keep 0 for now
+    num_workers=num_workers,   # keep 0 for now
 )
     images, input_ids, attn_mask, labels = next(iter(loader))
     images = images.to(device)
     input_ids = input_ids.to(device)
     attn_mask = attn_mask.to(device)
     labels = labels.to(device)
-    print(images.shape, input_ids.shape, attn_mask.shape, labels.shape)
 
-    with torch.no_grad():
-       img_features = resnet(images)
+    optimizer = get_optimizer(model=model,lr=lr,weight_decay=weight_decay)
+    scheduler = get_lr_scheduler(optimizer=optimizer)
     
-    logits = model(img_features, input_ids, attn_mask)
-    print(logits.shape)
+    
 
 if __name__ == "__main__":
     main()
