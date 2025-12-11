@@ -522,3 +522,75 @@
 2025-12-11 10:17:19,384 - INFO - Total samples: 29000
 2025-12-11 10:17:19,465 - INFO - Built 29000 samples for story 
 2025-12-11 10:17:19,699 - INFO - Cleaned data saved to data/processed\stories_train.jsonl
+2025-12-11 11:17:53,659 - INFO - Logging initialize successfully
+2025-12-11 11:17:56,218 - INFO - Loaded 29000 rows for split='train'.
+2025-12-11 11:17:58,186 - INFO - Built 29000 samples from annotaions
+2025-12-11 11:17:58,186 - INFO - Total samples: 29000
+2025-12-11 11:17:58,273 - INFO - Built 29000 samples for story 
+2025-12-11 11:17:58,452 - INFO - Cleaned data saved to data/processed\stories_train.jsonl
+2025-12-11 11:18:20,267 - INFO - Logging initialize successfully
+2025-12-11 11:18:22,517 - INFO - Loaded 29000 rows for split='train'.
+2025-12-11 11:18:24,200 - INFO - Built 29000 samples from annotaions
+2025-12-11 11:18:24,200 - INFO - Total samples: 29000
+2025-12-11 11:18:24,281 - INFO - Built 29000 samples for story 
+2025-12-11 11:18:24,454 - INFO - Cleaned data saved to data/processed\stories_train.jsonl
+2025-12-11 11:20:15,994 - INFO - Logging initialize successfully
+2025-12-11 11:20:18,288 - INFO - Loaded 29000 rows for split='train'.
+2025-12-11 11:20:20,039 - INFO - Built 29000 samples from annotaions
+2025-12-11 11:20:20,039 - INFO - Total samples: 29000
+2025-12-11 11:20:20,122 - INFO - Built 29000 samples for story 
+2025-12-11 11:20:20,295 - INFO - Cleaned data saved to data/processed\stories_train.jsonl
+2025-12-11 11:20:42,507 - INFO - Logging initialize successfully
+2025-12-11 11:20:44,914 - INFO - Loaded 29000 rows for split='train'.
+2025-12-11 11:20:46,624 - INFO - Built 29000 samples from annotaions
+2025-12-11 11:20:46,630 - INFO - Total samples: 29000
+2025-12-11 11:20:46,704 - INFO - Built 29000 samples for story 
+2025-12-11 11:20:46,877 - INFO - Cleaned data saved to data/processed\stories_train.jsonl
+2025-12-11 11:21:27,337 - INFO - Logging initialize successfully
+2025-12-11 11:21:29,726 - INFO - Loaded 29000 rows for split='train'.
+2025-12-11 11:21:31,673 - INFO - Built 29000 samples from annotaions
+2025-12-11 11:21:31,684 - INFO - Total samples: 29000
+2025-12-11 11:21:31,761 - INFO - Built 29000 samples for story 
+2025-12-11 11:21:31,933 - INFO - Cleaned data saved to data/processed\stories_train.jsonl
+2025-12-11 11:22:26,039 - INFO - Logging initialize successfully
+2025-12-11 11:22:28,478 - INFO - Loaded 29000 rows for split='train'.
+2025-12-11 11:22:30,145 - INFO - Built 29000 samples from annotaions
+2025-12-11 11:22:30,153 - INFO - Total samples: 29000
+2025-12-11 11:22:30,228 - INFO - Built 29000 samples for story 
+2025-12-11 11:22:30,407 - INFO - Cleaned data saved to data/processed\stories_train.jsonl
+2025-12-11 11:22:57,470 - INFO - Logging initialize successfully
+2025-12-11 11:22:59,813 - INFO - Loaded 29000 rows for split='train'.
+2025-12-11 11:23:01,637 - INFO - Built 29000 samples from annotaions
+2025-12-11 11:23:01,639 - INFO - Total samples: 29000
+2025-12-11 11:23:01,717 - INFO - Built 29000 samples for story 
+2025-12-11 11:23:01,883 - INFO - Cleaned data saved to data/processed\stories_train.jsonl
+2025-12-11 11:25:57,936 - INFO - Logging initialize successfully
+2025-12-11 11:26:00,463 - INFO - Loaded 29000 rows for split='train'.
+2025-12-11 11:26:03,110 - INFO - Built 29000 samples from annotaions
+2025-12-11 11:26:03,119 - INFO - Total samples: 29000
+2025-12-11 11:26:03,244 - INFO - Built 29000 samples for story 
+2025-12-11 11:26:03,513 - INFO - Cleaned data saved to data/processed\stories_train.jsonl
+2025-12-11 11:27:37,501 - INFO - Logging initialize successfully
+2025-12-11 11:27:40,004 - INFO - Loaded 29000 rows for split='train'.
+2025-12-11 11:27:42,665 - INFO - Built 29000 samples from annotaions
+2025-12-11 11:27:42,665 - INFO - Total samples: 29000
+2025-12-11 11:27:42,787 - INFO - Built 29000 samples for story 
+2025-12-11 11:27:43,066 - INFO - Cleaned data saved to data/processed\stories_train.jsonl
+2025-12-11 11:29:14,008 - INFO - Logging initialize successfully
+2025-12-11 11:29:16,588 - INFO - Loaded 29000 rows for split='train'.
+2025-12-11 11:29:19,200 - INFO - Built 29000 samples from annotaions
+2025-12-11 11:29:19,217 - INFO - Total samples: 29000
+2025-12-11 11:29:19,337 - INFO - Built 29000 samples for story 
+2025-12-11 11:29:19,604 - INFO - Cleaned data saved to data/processed\stories_train.jsonl
+2025-12-11 11:35:31,886 - INFO - Logging initialize successfully
+2025-12-11 11:35:34,397 - INFO - Loaded 29000 rows for split='train'.
+2025-12-11 11:35:37,095 - INFO - Built 29000 samples from annotaions
+2025-12-11 11:35:37,095 - INFO - Total samples: 29000
+2025-12-11 11:35:37,237 - INFO - Built 29000 samples for story 
+2025-12-11 11:35:37,540 - INFO - Cleaned data saved to data/processed\stories_train.jsonl
+2025-12-11 11:39:42,968 - INFO - Logging initialize successfully
+2025-12-11 11:39:45,495 - INFO - Loaded 29000 rows for split='train'.
+2025-12-11 11:39:48,231 - INFO - Built 29000 samples from annotaions
+2025-12-11 11:39:48,247 - INFO - Total samples: 29000
+2025-12-11 11:39:48,352 - INFO - Built 29000 samples for story 
+2025-12-11 11:39:48,616 - INFO - Cleaned data saved to data/processed\stories_train.jsonl

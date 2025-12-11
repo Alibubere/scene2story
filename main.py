@@ -13,7 +13,7 @@ from src.data_prep.dataset import StoryImageDataset
 from src.text.tokenizer_utils import get_gpt2_tokenizer
 from src.models.decoder import ImageConditionedTransformerDecoder
 from src.features.extract_image_features import get_pretrained_resnet50_encoder
-
+from src.data_prep.dataloader import get_dataloader
 
 def logging_setup():
 
@@ -71,17 +71,11 @@ def main():
     stories = build_story_dataset(samples=samples)
     save_clean_dataset(stories, save_dir, split)
     dataset = StoryImageDataset(train_data_path)
-    img, input_ids, attn_mask, labels = dataset[0]
-    print(input_ids.shape)
     
     # Extract image features
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     resnet = get_pretrained_resnet50_encoder(device)
-    with torch.no_grad():
-        img_features = resnet(img.unsqueeze(0).to(device))
-    
-    input_ids = input_ids.unsqueeze(0).to(device)
-    attn_mask = attn_mask.unsqueeze(0).to(device)
+
     model = ImageConditionedTransformerDecoder(
         vocab_size=vocab_size,
         d_model=d_model,
@@ -91,6 +85,24 @@ def main():
         max_seq_len=max_seq_len,
         dropout=dropout,
     ).to(device)
+
+    # sanity check one batch
+    loader = get_dataloader(
+    dataset,
+    batch_size=4,
+    shuffle=True,
+    num_workers=0,   # keep 0 for now
+)
+    images, input_ids, attn_mask, labels = next(iter(loader))
+    images = images.to(device)
+    input_ids = input_ids.to(device)
+    attn_mask = attn_mask.to(device)
+    labels = labels.to(device)
+    print(images.shape, input_ids.shape, attn_mask.shape, labels.shape)
+
+    with torch.no_grad():
+       img_features = resnet(images)
+    
     logits = model(img_features, input_ids, attn_mask)
     print(logits.shape)
 
