@@ -14,7 +14,13 @@ from src.text.tokenizer_utils import get_gpt2_tokenizer
 from src.models.decoder import ImageConditionedTransformerDecoder
 from src.features.extract_image_features import get_pretrained_resnet50_encoder
 from src.data_prep.dataloader import get_dataloader
-from src.models.training_utils import get_optimizer , get_lr_scheduler
+from src.models.training_utils import (
+    get_optimizer,
+    get_lr_scheduler,
+    save_checkpoint,
+    load_checkpoint,
+)
+
 
 def logging_setup():
 
@@ -75,22 +81,35 @@ def main():
     checkpoint = config["checkpoint"]
     checkpoint_dir = checkpoint["dir"]
     filename = checkpoint["filename"]
-    full_path = os.path.join(checkpoint_dir,filename)
-    os.makedirs(checkpoint_dir,exist_ok=True)
-
+    full_path = os.path.join(checkpoint_dir, filename)
+    os.makedirs(checkpoint_dir, exist_ok=True)
 
     train_data_path = "data/processed/stories_train.jsonl"
+    val_data_path = "data/processed/stories_val.jsonl"
     tokenizer = get_gpt2_tokenizer()
     vocab_size = len(tokenizer)
-    df = load_flickr_annotations(csv_path=csv_path, split=split)
-    df = parse_captions_column(df)
-    samples = build_samples_list(df, images_dir)
-    logging.info(f"Total samples: {len(samples)}")
-    stories = build_story_dataset(samples=samples)
-    save_clean_dataset(stories, save_dir, split)
-    dataset = StoryImageDataset(train_data_path)
-    
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
+    train_df = load_flickr_annotations(csv_path=csv_path, split=split)
+    val_df = load_flickr_annotations(csv_path=csv_path, split="val")
+
+    train_df = parse_captions_column(train_df)
+    val_df = parse_captions_column(val_df)
+
+    train_samples = build_samples_list(train_df, images_dir)
+    logging.info(f"Total train samples: {len(train_samples)}")
+
+    val_samples = build_samples_list(val_df, images_dir)
+    logging.info(f"Total val samples: {len(val_samples)}")
+
+    train_stories = build_story_dataset(samples=train_samples)
+    val_stories = build_story_dataset(samples=val_samples)
+
+    save_clean_dataset(train_stories, save_dir, split)
+    save_clean_dataset(val_stories, save_dir, split="val")
+    train_dataset = StoryImageDataset(train_data_path)
+    val_dataset = StoryImageDataset(val_data_path)
+
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     resnet = get_pretrained_resnet50_encoder(device)
 
     model = ImageConditionedTransformerDecoder(
@@ -104,22 +123,23 @@ def main():
     ).to(device)
 
     # sanity check one batch
-    loader = get_dataloader(
-    dataset,
-    batch_size=batch_size,
-    shuffle=True,
-    num_workers=num_workers,   # keep 0 for now
-)
-    images, input_ids, attn_mask, labels = next(iter(loader))
-    images = images.to(device)
-    input_ids = input_ids.to(device)
-    attn_mask = attn_mask.to(device)
-    labels = labels.to(device)
+    train_dataloader = get_dataloader(
+        dataset=train_dataset,
+        batch_size=batch_size,
+        shuffle=True,
+        num_workers=num_workers,
+        drop_last=True,
+    )
+    val_dataloader = get_dataloader(
+        val_dataset,
+        batch_size=batch_size,
+        shuffle=False,
+        num_workers=num_workers,
+    )
 
-    optimizer = get_optimizer(model=model,lr=lr,weight_decay=weight_decay)
+    optimizer = get_optimizer(model=model, lr=lr, weight_decay=weight_decay)
     scheduler = get_lr_scheduler(optimizer=optimizer)
-    
-    
+
 
 if __name__ == "__main__":
     main()
