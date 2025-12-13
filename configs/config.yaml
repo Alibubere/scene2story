@@ -27,4 +27,5 @@ training:
 
 checkpoint:
   dir: checkpoints/
-  filename: model.pth
+  latest: latest.pth
+  best: best.pth

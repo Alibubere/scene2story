@@ -32,6 +32,7 @@ def save_checkpoint(
     scheduler,
     epoch: int,
     scaler,
+    best_val_loss:float = None
 ):
     """
     Save the checkpoint (calls save_checkpoint after every epoch for better storing the parameters)
@@ -43,6 +44,7 @@ def save_checkpoint(
         scheduler (optional): The LR scheduler. Its state_dict is saved if not None.
         epoch (int): The number of the *next* epoch to run (i.e., last_completed_epoch + 1).
         scaler (optional): The gradient scaler (for mixed precision). Its state_dict is saved if not None.
+        best_val_loss (float, optional): The current best validation loss achieved.
     """
     if path is None:
         raise FileNotFoundError(f"Path not found {path} for save checkpoint")
@@ -55,6 +57,7 @@ def save_checkpoint(
         "sched_state": scheduler.state_dict() if scheduler is not None else None,
         "epoch": epoch,
         "scaler_state": scaler.state_dict() if scaler is not None else None,
+        "best_val_loss": best_val_loss,
     }
 
     try:
@@ -89,8 +92,9 @@ def load_checkpoint(
               - 'model': model with loaded weights.
               - 'optimizer': optimizer with restored state.
               - 'epoch': int, the next epoch number to start training from.
-              - 'scheduler_restored': bool, True if the scheduler state was loaded.
-              - 'scaler_restored': bool, True if the scaler state was loaded.
+              - 'scheduler': scheduler with restored state.
+              - 'scaler': scaler with restored state.
+              - 'best_val_loss': float , best val loss the model have given
     """
 
     try:
@@ -108,6 +112,7 @@ def load_checkpoint(
     optimizer.load_state_dict(checkpoint["optimizer_state"])
 
     epoch = checkpoint.get("epoch", 1)
+    best_val_loss = checkpoint.get("best_val_loss",None)
 
     scheduler_restored = False
     if scheduler is not None and checkpoint.get("sched_state") is not None:
@@ -134,4 +139,5 @@ def load_checkpoint(
         "epoch":epoch,
         "scheduler":scheduler,
         "scaler":scaler,
+        "best_loss_val":best_val_loss,
     }

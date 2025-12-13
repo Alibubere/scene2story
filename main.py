@@ -80,8 +80,10 @@ def main():
     # Checkpoint config
     checkpoint = config["checkpoint"]
     checkpoint_dir = checkpoint["dir"]
-    filename = checkpoint["filename"]
-    full_path = os.path.join(checkpoint_dir, filename)
+    latest = checkpoint["latest"]
+    best = checkpoint["best"]
+    latest_path = os.path.join(checkpoint_dir, latest)
+    best_path = os.path.join(checkpoint_dir,best)
     os.makedirs(checkpoint_dir, exist_ok=True)
 
     train_data_path = "data/processed/stories_train.jsonl"
