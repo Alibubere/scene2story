@@ -10,6 +10,8 @@ def get_optimizer(model, lr: float, weight_decay: float):
         model.parameters(),
         lr=lr,
         weight_decay=weight_decay,
+        eps=1e-8,
+        betas=(0.9, 0.999)
     )
     return optimizer
 

@@ -18,14 +18,18 @@ model:
   dropout: 0.1
 
 training:
-  num_epochs: 20
+  num_epochs: 10
   batch_size: 4
-  lr: 0.005
-  weight_decay: 0.0005
+  lr: 0.0001
+  weight_decay: 0.0001
   num_workers: 4
   resume_from_checkpoint: True
+  use_amp: True
 
 checkpoint:
   dir: checkpoints/
   latest: latest.pth
   best: best.pth
+
+monitoring:
+  fixed_image_path: "data/raw/flickr30k-images/1000092795.jpg"

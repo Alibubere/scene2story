@@ -4,6 +4,7 @@ import torch
 import logging
 from src.models.training_utils import save_checkpoint, load_checkpoint
 from src.models.train import train_one_epoch, validate_one_epoch
+from src.models.story_generation import generate_story_from_fixed_image
 import math
 
 
@@ -21,6 +22,7 @@ def train_loop(
     val_dataloader,
     resnet,
     use_amp: bool,
+    fixed_image_path: str = None,
 ):
 
     start_epoch = 1
@@ -80,6 +82,16 @@ def train_loop(
             f"Epoch: [{epoch}/{num_epochs}]"
             f"Train loss: {train_avg_loss:.4f} | Val loss: {val_avg_loss:.4f}"
         )
+        
+        # Generate story from fixed image for monitoring
+        if fixed_image_path and os.path.exists(fixed_image_path):
+            try:
+                story = generate_story_from_fixed_image(
+                    model, resnet, device, fixed_image_path
+                )
+                logging.info(f"Epoch {epoch} Generated Story: {story}")
+            except Exception as e:
+                logging.warning(f"Failed to generate story: {e}")
 
         if val_avg_loss < best_val_loss:
 

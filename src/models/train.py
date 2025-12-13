@@ -2,7 +2,7 @@ import torch
 import logging
 from torch.cuda.amp import autocast
 
-CLIP_GRAD_VALUE = 1.0
+CLIP_GRAD_VALUE = 0.1
 
 
 def train_one_epoch(
@@ -23,7 +23,7 @@ def train_one_epoch(
     running_loss = 0.0
     num_samples = 0
 
-    loss_fn = torch.nn.CrossEntropyLoss(ignore_index=-100)
+    loss_fn = torch.nn.CrossEntropyLoss(ignore_index=-100, label_smoothing=0.1)
 
     for batch_idx, (images, input_ids, attn_mask, labels) in enumerate(dataloader):
 
@@ -48,6 +48,16 @@ def train_one_epoch(
                 flattened_labels = labels.view(-1)
 
                 loss = loss_fn(flattened_logits, flattened_labels)
+                
+                # Check for NaN/inf and gradients
+                if torch.isnan(loss) or torch.isinf(loss):
+                    logging.warning(f"NaN/Inf loss detected at batch {batch_idx}, skipping")
+                    continue
+                    
+                # Check for extreme loss values
+                if loss.item() > 20.0:
+                    logging.warning(f"Extreme loss {loss.item():.4f} at batch {batch_idx}, skipping")
+                    continue
 
             optimizer.zero_grad()
 
@@ -73,9 +83,9 @@ def train_one_epoch(
 
             num_samples += current_batch_size
 
-            if batch_idx % 10 == 0:
+            if batch_idx % 100 == 0:
                 logging.info(
-                    f"Epoch [{epoch}] Batch [{batch_idx}/{len(dataloader)}]"
+                    f"Epoch [{epoch}] Batch [{batch_idx}/{len(dataloader)}] "
                     f"loss: {loss.item():.4f} "
                 )
         except RuntimeError as e:
@@ -107,7 +117,7 @@ def validate_one_epoch(
 
     total_batch_loss = 0.0
 
-    loss_fn = torch.nn.CrossEntropyLoss(ignore_index=-100)
+    loss_fn = torch.nn.CrossEntropyLoss(ignore_index=-100, label_smoothing=0.1)
 
     with torch.inference_mode():
 
@@ -135,7 +145,7 @@ def validate_one_epoch(
 
                 if batch_idx % 10 == 0:
                     logging.info(
-                        f"Epoch [{epoch}] Batch [{batch_idx}/{len(dataloader)}]"
+                        f"Epoch [{epoch}] Batch [{batch_idx}/{len(dataloader)}] "
                         f"loss: {loss.item():.4f} "
                     )
 

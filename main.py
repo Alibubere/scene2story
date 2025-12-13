@@ -2,6 +2,7 @@ import yaml
 import logging
 import os
 import torch
+from torch.cuda.amp import GradScaler
 from src.data_prep.flickr_loader import (
     load_flickr_annotations,
     build_samples_list,
@@ -17,9 +18,8 @@ from src.data_prep.dataloader import get_dataloader
 from src.models.training_utils import (
     get_optimizer,
     get_lr_scheduler,
-    save_checkpoint,
-    load_checkpoint,
 )
+from src.models.train_loop import train_loop
 
 
 def logging_setup():
@@ -76,6 +76,7 @@ def main():
     weight_decay = training_config["weight_decay"]
     num_workers = training_config["num_workers"]
     resume = training_config["resume_from_checkpoint"]
+    use_amp = training_config["use_amp"]
 
     # Checkpoint config
     checkpoint = config["checkpoint"]
@@ -83,8 +84,11 @@ def main():
     latest = checkpoint["latest"]
     best = checkpoint["best"]
     latest_path = os.path.join(checkpoint_dir, latest)
-    best_path = os.path.join(checkpoint_dir,best)
+    best_path = os.path.join(checkpoint_dir, best)
     os.makedirs(checkpoint_dir, exist_ok=True)
+    
+    # Fixed image for monitoring
+    fixed_image_path = config.get("monitoring", {}).get("fixed_image_path")
 
     train_data_path = "data/processed/stories_train.jsonl"
     val_data_path = "data/processed/stories_val.jsonl"
@@ -140,6 +144,24 @@ def main():
 
     optimizer = get_optimizer(model=model, lr=lr, weight_decay=weight_decay)
     scheduler = get_lr_scheduler(optimizer=optimizer)
+    scaler = GradScaler()
+
+    train_loop(
+        resume=resume,
+        num_epochs=num_epochs,
+        latest_path=latest_path,
+        best_path=best_path,
+        model=model,
+        optimizer=optimizer,
+        scaler=scaler,
+        scheduler=scheduler,
+        device=device,
+        train_dataloader=train_dataloader,
+        val_dataloader=val_dataloader,
+        resnet=resnet,
+        use_amp=use_amp,
+        fixed_image_path=fixed_image_path,
+    )
 
 
 if __name__ == "__main__":
