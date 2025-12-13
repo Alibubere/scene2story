@@ -94,11 +94,12 @@ def train_loop(
                 logging.warning(f"Failed to generate story: {e}")
 
         if val_avg_loss < best_val_loss:
-
-            logging.info(
-                f"Validation loss improved from {best_val_loss:.4f} to {val_avg_loss:.4f} Saving Best model."
-            )
+            prev_best = best_val_loss
             best_val_loss = val_avg_loss
+            
+            logging.info(
+                f"Validation loss improved from {prev_best:.4f} to {best_val_loss:.4f}. Saving Best model."
+            )
 
             save_checkpoint(
                 path=best_path,

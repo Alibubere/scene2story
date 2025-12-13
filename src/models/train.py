@@ -83,7 +83,7 @@ def train_one_epoch(
 
             num_samples += current_batch_size
 
-            if batch_idx % 100 == 0:
+            if batch_idx % 250 == 0:
                 logging.info(
                     f"Epoch [{epoch}] Batch [{batch_idx}/{len(dataloader)}] "
                     f"loss: {loss.item():.4f} "
