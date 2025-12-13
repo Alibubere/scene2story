@@ -122,7 +122,6 @@ def main():
         dropout=dropout,
     ).to(device)
 
-    # sanity check one batch
     train_dataloader = get_dataloader(
         dataset=train_dataset,
         batch_size=batch_size,
