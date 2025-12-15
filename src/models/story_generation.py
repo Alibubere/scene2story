@@ -5,7 +5,7 @@ from src.text.tokenizer_utils import get_gpt2_tokenizer
 
 
 def generate_story_from_fixed_image(
-    model, resnet, device, image_path: str, max_length: int = 50
+    model, resnet, device, image_path: str, max_length: int = 25
 ):
     """Generate story from a fixed image for monitoring training progress."""
     
@@ -35,18 +35,23 @@ def generate_story_from_fixed_image(
             # Get model predictions
             logits = model(img_feats, input_ids, attention_mask)
             
-            # Get next token with higher temperature for more diversity
-            logits_last = logits[0, -1, :] / 1.2  # higher temperature
-            probs = torch.softmax(logits_last, dim=-1)
-            next_token_id = torch.multinomial(probs, 1).unsqueeze(0)
+            # Get next token with balanced sampling
+            logits_last = logits[0, -1, :] / 0.9  # moderate temperature
+            
+            # Top-k sampling (keep only top 100 tokens for more diversity)
+            top_k = 100
+            top_k_logits, top_k_indices = torch.topk(logits_last, top_k)
+            probs = torch.softmax(top_k_logits, dim=-1)
+            selected_idx = torch.multinomial(probs, 1)
+            next_token_id = top_k_indices[selected_idx].unsqueeze(0)
             
             # Stop if EOS token or repetition
             token_id = next_token_id.item()
             if token_id == tokenizer.eos_token_id:
                 break
             
-            # Stop if same token repeated 4+ times consecutively
-            if len(generated_tokens) >= 3 and all(t == token_id for t in generated_tokens[-3:]):
+            # Stop if same token repeated 3+ times consecutively
+            if len(generated_tokens) >= 2 and all(t == token_id for t in generated_tokens[-2:]):
                 break
                 
             generated_tokens.append(token_id)

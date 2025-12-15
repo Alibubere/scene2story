@@ -83,7 +83,7 @@ def train_one_epoch(
 
             num_samples += current_batch_size
 
-            if batch_idx % 250 == 0:
+            if batch_idx % 1025 == 0:
                 logging.info(
                     f"Epoch [{epoch}] Batch [{batch_idx}/{len(dataloader)}] "
                     f"loss: {loss.item():.4f} "
@@ -98,9 +98,6 @@ def train_one_epoch(
                 if device.type == "cuda":
                     torch.cuda.empty_cache()
             continue
-
-    if scheduler:
-        scheduler.step()
 
     avg_loss = running_loss / max(1, num_samples)
     return avg_loss

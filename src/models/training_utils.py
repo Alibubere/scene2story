@@ -18,10 +18,14 @@ def get_optimizer(model, lr: float, weight_decay: float):
 
 def get_lr_scheduler(optimizer: torch.optim.Optimizer):
     """
-    Returns a StepLR scheduler.
+    Returns a ReduceLROnPlateau scheduler for adaptive learning rate.
     """
-    scheduler = torch.optim.lr_scheduler.StepLR(
-        optimizer=optimizer, step_size=1, gamma=0.95
+    scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
+        optimizer=optimizer, 
+        mode='min', 
+        factor=0.5, 
+        patience=3, 
+        min_lr=1e-6
     )
 
     return scheduler
