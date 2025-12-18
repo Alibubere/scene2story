@@ -2,12 +2,13 @@ import torch
 import logging
 import os
 from typing import Union
-def get_optimizer(model, lr: float, weight_decay: float):
+def get_optimizer(params, lr: float, weight_decay: float):
     """
-    Returns a AdamW optimizer for the model
+    Returns an AdamW optimizer for the specific parameters provided.
+    (Ensures we only optimize the 'requires_grad=True' layers)
     """
     optimizer = torch.optim.AdamW(
-        model.parameters(),
+        params,
         lr=lr,
         weight_decay=weight_decay,
         eps=1e-8,

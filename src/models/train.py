@@ -1,6 +1,6 @@
 import torch
 import logging
-from torch.cuda.amp import autocast
+from torch import amp
 
 CLIP_GRAD_VALUE = 0.1
 
@@ -23,8 +23,6 @@ def train_one_epoch(
     running_loss = 0.0
     num_samples = 0
 
-    loss_fn = torch.nn.CrossEntropyLoss(ignore_index=-100, label_smoothing=0.1)
-
     for batch_idx, (images, input_ids, attn_mask, labels) in enumerate(dataloader):
 
         try:
@@ -37,37 +35,26 @@ def train_one_epoch(
             with torch.no_grad():
                 img_feats = resnet(images)
 
-            with autocast(enabled=(device.type == "cuda" and use_amp)):
+            with amp.autocast(device_type="cuda",enabled=use_amp):
 
-                logits = model(img_feats, input_ids, attn_mask)
+                loss, logits = model(img_feats, input_ids, attn_mask, labels)
 
-                B, L, vocab_size = logits.shape
+            if loss is None:
+                if batch_idx == 0:
+                    logging.error("Model returned None for loss. Check if 'labels' are being passed to the forward pass.")
+                continue
 
-                flattened_logits = logits.view(-1, vocab_size)
-
-                flattened_labels = labels.view(-1)
-
-                loss = loss_fn(flattened_logits, flattened_labels)
-                
-                # Check for NaN/inf and gradients
-                if torch.isnan(loss) or torch.isinf(loss):
-                    logging.warning(f"NaN/Inf loss detected at batch {batch_idx}, skipping")
-                    continue
-                    
-                # Check for extreme loss values
-                if loss.item() > 20.0:
-                    logging.warning(f"Extreme loss {loss.item():.4f} at batch {batch_idx}, skipping")
-                    continue
+            if torch.isnan(loss) or torch.isinf(loss):
+                logging.warning(f"NaN/Inf loss detected at batch {batch_idx}, skipping")
+                continue
 
             optimizer.zero_grad()
 
             if use_amp and scaler is not None:
 
-                scaler.scale(loss).backward()
-
+                scaler.scale(loss).backward() 
                 scaler.unscale_(optimizer)
                 torch.nn.utils.clip_grad_norm_(model.parameters(), CLIP_GRAD_VALUE)
-
                 scaler.step(optimizer)
                 scaler.update()
 
@@ -83,7 +70,7 @@ def train_one_epoch(
 
             num_samples += current_batch_size
 
-            if batch_idx % 1025 == 0:
+            if batch_idx % 1200 == 0:
                 logging.info(
                     f"Epoch [{epoch}] Batch [{batch_idx}/{len(dataloader)}] "
                     f"loss: {loss.item():.4f} "
@@ -114,9 +101,7 @@ def validate_one_epoch(
 
     total_batch_loss = 0.0
 
-    loss_fn = torch.nn.CrossEntropyLoss(ignore_index=-100, label_smoothing=0.1)
-
-    with torch.inference_mode():
+    with torch.no_grad():
 
         for batch_idx, (images, input_ids, attn_mask, labels) in enumerate(dataloader):
 
@@ -128,19 +113,12 @@ def validate_one_epoch(
 
                 img_feats = resnet(images)
 
-                with autocast(enabled=(device.type == "cuda" and use_amp)):
-                    logits = model(img_feats, input_ids, attn_mask)
-
-                    B, L, vocab_size = logits.shape
-
-                    flattened_logits = logits.view(-1, vocab_size)
-                    flattened_labels = labels.view(-1)
-
-                    loss = loss_fn(flattened_logits, flattened_labels)
+                with amp.autocast(device_type="cuda",enabled=use_amp):
+                    loss , logits = model(img_feats, input_ids, attn_mask, labels)
 
                 total_batch_loss += loss.item()
 
-                if batch_idx % 10 == 0:
+                if batch_idx % 20 == 0:
                     logging.info(
                         f"Epoch [{epoch}] Batch [{batch_idx}/{len(dataloader)}] "
                         f"loss: {loss.item():.4f} "

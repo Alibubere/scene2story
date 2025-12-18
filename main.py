@@ -20,6 +20,7 @@ from src.models.training_utils import (
     get_lr_scheduler,
 )
 from src.models.train_loop import train_loop
+from src.models.multimodel_gpt2 import MultimodelGPT2
 
 
 def logging_setup():
@@ -53,7 +54,6 @@ def main():
     # data config
     data = config["data"]
     split = data["use_split"]
-    num_preview = data["num_preview"]
 
     # clean path config
     clean_path = config["clean_paths"]
@@ -61,11 +61,9 @@ def main():
 
     # model config
     model_config = config["model"]
-    d_model = model_config["d_model"]
-    n_heads = model_config["n_heads"]
-    num_layers = model_config["num_layers"]
-    dim_feedforward = model_config["dim_feedforward"]
-    max_seq_len = model_config["max_seq_len"]
+    gpt2_model_name = model_config["gpt2_type"]
+    num_image_tokens = model_config["num_img_tokens"]
+    num_unfreeze_layers = model_config["num_unfreeze_layers"]
     dropout = model_config["dropout"]
 
     # Training config
@@ -86,14 +84,12 @@ def main():
     latest_path = os.path.join(checkpoint_dir, latest)
     best_path = os.path.join(checkpoint_dir, best)
     os.makedirs(checkpoint_dir, exist_ok=True)
-    
+
     # Fixed image for monitoring
     fixed_image_path = config.get("monitoring", {}).get("fixed_image_path")
 
     train_data_path = "data/processed/stories_train.jsonl"
     val_data_path = "data/processed/stories_val.jsonl"
-    tokenizer = get_gpt2_tokenizer()
-    vocab_size = len(tokenizer)
 
     train_df = load_flickr_annotations(csv_path=csv_path, split=split)
     val_df = load_flickr_annotations(csv_path=csv_path, split="val")
@@ -118,15 +114,11 @@ def main():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     resnet = get_pretrained_resnet50_encoder(device)
 
-    model = ImageConditionedTransformerDecoder(
-        vocab_size=vocab_size,
-        d_model=d_model,
-        n_heads=n_heads,
-        num_layers=num_layers,
-        dim_feedforward=dim_feedforward,
-        max_seq_len=max_seq_len,
-        dropout=dropout,
-    ).to(device)
+    model = MultimodelGPT2(
+        gpt2_model_name=gpt2_model_name,
+        num_img_tokens=num_image_tokens,
+        num_unfreeze_layers=num_unfreeze_layers,
+    ).to(device=device)
 
     train_dataloader = get_dataloader(
         dataset=train_dataset,
@@ -142,9 +134,15 @@ def main():
         num_workers=num_workers,
     )
 
-    optimizer = get_optimizer(model=model, lr=lr, weight_decay=weight_decay)
+    trainable_params = [p for p in model.parameters() if p.requires_grad]
+
+    optimizer = get_optimizer(trainable_params, lr=lr, weight_decay=weight_decay)
     scheduler = get_lr_scheduler(optimizer=optimizer)
     scaler = GradScaler()
+
+    logging.info(
+        f"Model initialized. Trainable parameters: {sum(p.numel() for p in trainable_params)}"
+    )
 
     train_loop(
         resume=resume,

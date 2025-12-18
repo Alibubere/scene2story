@@ -10,13 +10,17 @@ import torch
 
 class StoryImageDataset(Dataset):
 
-    def __init__(self, data_path: str):
-
+    def __init__(self, data_path: str, max_length: int = 128):
+        """
+        Args:
+            data_path (str): Path to the .jsonl file containing image paths and stories.
+            max_length (int): Max sequence length for the text tokens.
+        """
         self.data_path = data_path
         self.transform = get_resnet50_transform()
         self.data = []
         self.tokenizer = get_gpt2_tokenizer()
-        self.image_token_id = self.tokenizer.convert_tokens_to_ids(['[IMG]'])[0]
+        self.max_length = max_length
 
         if not os.path.exists(self.data_path):
             raise FileNotFoundError(f"Data file does not exist {self.data_path}")
@@ -50,20 +54,11 @@ class StoryImageDataset(Dataset):
             logging.exception(f"Failed to load or transform image at {image_path}")
             raise RuntimeError(f"Could not load image at path: {image_path}")
 
-        token_data = tokenize_story(self.tokenizer, story=story)
-        text_ids = token_data["input_ids"]
-        text_mask = token_data["attention_mask"]
+        token_data = tokenize_story(
+            self.tokenizer, story=story, max_length=self.max_length
+        )
+        input_ids = token_data["input_ids"]
+        attention_mask = token_data["attention_mask"]
+        labels = token_data["labels"]
 
-        img_token_tensor = torch.tensor([self.image_token_id], dtype=torch.long)
-        mask_one_tensor = torch.tensor([1], dtype=torch.long)
-
-        final_input_ids = torch.cat([img_token_tensor, text_ids], dim=0)
-
-        final_attention_mask = torch.cat([mask_one_tensor, text_mask], dim=0)
-
-        final_labels = final_input_ids.clone()
-        final_labels[0] = -100
-
-        final_labels[final_attention_mask == 0] = -100
-
-        return (image_tensor, final_input_ids, final_attention_mask, final_labels)
+        return (image_tensor, input_ids, attention_mask, labels)
