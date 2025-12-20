@@ -3658,3 +3658,314 @@
 2025-12-18 22:43:40,005 - INFO - Checkpoint saved to checkpoints/latest.pth (resumption epoch: 5)
 2025-12-18 22:44:07,118 - INFO - Epoch [6] Batch [0/3625] loss: 1.2307 
 2025-12-18 22:59:55,042 - INFO - Epoch [6] Batch [1200/3625] loss: 1.5653 
+2025-12-19 19:25:35,139 - INFO - Logging initialize successfully
+2025-12-19 19:25:35,299 - INFO - Loaded 29000 rows for split='train'.
+2025-12-19 19:25:35,421 - INFO - Loaded 1014 rows for split='val'.
+2025-12-19 19:25:36,710 - INFO - Built 29000 samples from annotaions
+2025-12-19 19:25:36,713 - INFO - Total train samples: 29000
+2025-12-19 19:25:36,748 - INFO - Built 1014 samples from annotaions
+2025-12-19 19:25:36,748 - INFO - Total val samples: 1014
+2025-12-19 19:25:36,815 - INFO - Built 29000 samples for story 
+2025-12-19 19:25:36,818 - INFO - Built 1014 samples for story 
+2025-12-19 19:25:36,963 - INFO - Cleaned data saved to data/processed\stories_train.jsonl
+2025-12-19 19:25:36,966 - INFO - Cleaned data saved to data/processed\stories_val.jsonl
+2025-12-19 19:25:42,105 - INFO - Model initialized. Trainable parameters: 73250304
+2025-12-19 19:25:43,995 - INFO - Checkpoint loaded from checkpoints/latest.pth. Resuming at epoch 5. (Scheduler restored: True, Scaler restored: True)
+2025-12-19 19:25:44,001 - INFO - Checkpoint loaded from checkpoints/latest.pth (LATEST (Better Performance)). Resuming training from epoch 6, best loss tracked: 1.3452
+2025-12-19 19:26:12,829 - INFO - Epoch [6] Batch [0/3625] loss: 1.2856 
+2025-12-19 19:28:44,124 - INFO - Epoch [6] Batch [1200/3625] loss: 1.2762 
+2025-12-19 19:31:14,761 - INFO - Epoch [6] Batch [2400/3625] loss: 1.5104 
+2025-12-19 19:33:45,198 - INFO - Epoch [6] Batch [3600/3625] loss: 1.3248 
+2025-12-19 19:34:18,451 - INFO - Epoch [6] Batch [0/127] loss: 1.1276 
+2025-12-19 19:34:19,347 - INFO - Epoch [6] Batch [20/127] loss: 1.4324 
+2025-12-19 19:34:20,208 - INFO - Epoch [6] Batch [40/127] loss: 1.3628 
+2025-12-19 19:34:21,069 - INFO - Epoch [6] Batch [60/127] loss: 1.3478 
+2025-12-19 19:34:21,934 - INFO - Epoch [6] Batch [80/127] loss: 1.1485 
+2025-12-19 19:34:22,797 - INFO - Epoch [6] Batch [100/127] loss: 1.3833 
+2025-12-19 19:34:23,656 - INFO - Epoch [6] Batch [120/127] loss: 1.5321 
+2025-12-19 19:34:25,060 - INFO - Epoch: [6/15]Train loss: 1.3169 | Val loss: 1.3355
+2025-12-19 19:34:25,060 - INFO - --- Generating Sample Story for Epoch 6 ---
+2025-12-19 19:34:27,214 - INFO - Generated Story: air on an outdoor garden patio until the feeling was all that remained. In the background, the field feels sad in early morning
+2025-12-19 19:34:27,214 - INFO - Validation loss improved from 1.3452 to 1.3355. Saving Best model.
+2025-12-19 19:34:28,288 - INFO - Checkpoint saved to checkpoints/best.pth (resumption epoch: 6)
+2025-12-19 19:34:29,312 - INFO - Checkpoint saved to checkpoints/latest.pth (resumption epoch: 6)
+2025-12-19 19:34:56,543 - INFO - Epoch [7] Batch [0/3625] loss: 1.4199 
+2025-12-19 19:37:25,953 - INFO - Epoch [7] Batch [1200/3625] loss: 1.0973 
+2025-12-19 19:39:54,144 - INFO - Epoch [7] Batch [2400/3625] loss: 1.2638 
+2025-12-19 19:42:23,093 - INFO - Epoch [7] Batch [3600/3625] loss: 1.5874 
+2025-12-19 19:42:55,312 - INFO - Epoch [7] Batch [0/127] loss: 1.1285 
+2025-12-19 19:42:56,191 - INFO - Epoch [7] Batch [20/127] loss: 1.4316 
+2025-12-19 19:42:57,060 - INFO - Epoch [7] Batch [40/127] loss: 1.3808 
+2025-12-19 19:42:57,916 - INFO - Epoch [7] Batch [60/127] loss: 1.3792 
+2025-12-19 19:42:58,778 - INFO - Epoch [7] Batch [80/127] loss: 1.1230 
+2025-12-19 19:42:59,642 - INFO - Epoch [7] Batch [100/127] loss: 1.4287 
+2025-12-19 19:43:00,502 - INFO - Epoch [7] Batch [120/127] loss: 1.5377 
+2025-12-19 19:43:01,884 - INFO - Epoch: [7/15]Train loss: 1.2652 | Val loss: 1.3344
+2025-12-19 19:43:01,884 - INFO - --- Generating Sample Story for Epoch 7 ---
+2025-12-19 19:43:03,532 - INFO - Generated Story: until the feeling was all that remained. In the background, the street feels lonely just before the rain
+2025-12-19 19:43:03,532 - INFO - Validation loss improved from 1.3355 to 1.3344. Saving Best model.
+2025-12-19 19:43:04,565 - INFO - Checkpoint saved to checkpoints/best.pth (resumption epoch: 7)
+2025-12-19 19:43:05,608 - INFO - Checkpoint saved to checkpoints/latest.pth (resumption epoch: 7)
+2025-12-19 19:43:32,595 - INFO - Epoch [8] Batch [0/3625] loss: 1.1436 
+2025-12-19 19:46:00,079 - INFO - Epoch [8] Batch [1200/3625] loss: 1.3552 
+2025-12-19 19:48:30,021 - INFO - Epoch [8] Batch [2400/3625] loss: 1.1363 
+2025-12-19 19:50:58,950 - INFO - Epoch [8] Batch [3600/3625] loss: 1.2386 
+2025-12-19 19:51:32,977 - INFO - Epoch [8] Batch [0/127] loss: 1.1298 
+2025-12-19 19:51:33,873 - INFO - Epoch [8] Batch [20/127] loss: 1.4668 
+2025-12-19 19:51:34,755 - INFO - Epoch [8] Batch [40/127] loss: 1.3849 
+2025-12-19 19:51:35,628 - INFO - Epoch [8] Batch [60/127] loss: 1.4328 
+2025-12-19 19:51:36,505 - INFO - Epoch [8] Batch [80/127] loss: 1.1510 
+2025-12-19 19:51:37,379 - INFO - Epoch [8] Batch [100/127] loss: 1.4392 
+2025-12-19 19:51:38,257 - INFO - Epoch [8] Batch [120/127] loss: 1.5978 
+2025-12-19 19:51:39,661 - INFO - Epoch: [8/15]Train loss: 1.2204 | Val loss: 1.3454
+2025-12-19 19:51:39,661 - INFO - --- Generating Sample Story for Epoch 8 ---
+2025-12-19 19:51:41,858 - INFO - Generated Story: a stillness that felt both fragile and absolute. In the background, the stadium feels sad just before the rain
+2025-12-19 19:51:41,858 - INFO - Validation loss did not improve. Current best loss: 1.3344 (Patience: 1/5)
+2025-12-19 19:51:42,918 - INFO - Checkpoint saved to checkpoints/latest.pth (resumption epoch: 8)
+2025-12-19 19:52:10,050 - INFO - Epoch [9] Batch [0/3625] loss: 1.2891 
+2025-12-19 19:54:37,334 - INFO - Epoch [9] Batch [1200/3625] loss: 1.1785 
+2025-12-19 19:57:06,443 - INFO - Epoch [9] Batch [2400/3625] loss: 1.3364 
+2025-12-19 19:59:33,263 - INFO - Epoch [9] Batch [3600/3625] loss: 1.0785 
+2025-12-19 20:00:05,621 - INFO - Epoch [9] Batch [0/127] loss: 1.1315 
+2025-12-19 20:00:06,518 - INFO - Epoch [9] Batch [20/127] loss: 1.5054 
+2025-12-19 20:00:07,388 - INFO - Epoch [9] Batch [40/127] loss: 1.3958 
+2025-12-19 20:00:08,263 - INFO - Epoch [9] Batch [60/127] loss: 1.4639 
+2025-12-19 20:00:09,136 - INFO - Epoch [9] Batch [80/127] loss: 1.1297 
+2025-12-19 20:00:10,012 - INFO - Epoch [9] Batch [100/127] loss: 1.4463 
+2025-12-19 20:00:10,886 - INFO - Epoch [9] Batch [120/127] loss: 1.6102 
+2025-12-19 20:00:12,272 - INFO - Epoch: [9/15]Train loss: 1.1805 | Val loss: 1.3591
+2025-12-19 20:00:12,272 - INFO - --- Generating Sample Story for Epoch 9 ---
+2025-12-19 20:00:13,916 - INFO - Generated Story: was all that remained. In the background, the field feels playful late at night
+2025-12-19 20:00:13,916 - INFO - Validation loss did not improve. Current best loss: 1.3344 (Patience: 2/5)
+2025-12-19 20:00:15,000 - INFO - Checkpoint saved to checkpoints/latest.pth (resumption epoch: 9)
+2025-12-19 20:00:41,706 - INFO - Epoch [10] Batch [0/3625] loss: 1.1569 
+2025-12-19 20:03:08,720 - INFO - Epoch [10] Batch [1200/3625] loss: 1.0450 
+2025-12-19 20:05:35,972 - INFO - Epoch [10] Batch [2400/3625] loss: 1.0193 
+2025-12-19 20:08:05,484 - INFO - Epoch [10] Batch [3600/3625] loss: 1.2234 
+2025-12-19 20:08:39,474 - INFO - Epoch [10] Batch [0/127] loss: 1.1793 
+2025-12-19 20:08:40,516 - INFO - Epoch [10] Batch [20/127] loss: 1.4910 
+2025-12-19 20:08:41,432 - INFO - Epoch [10] Batch [40/127] loss: 1.4165 
+2025-12-19 20:08:42,356 - INFO - Epoch [10] Batch [60/127] loss: 1.4329 
+2025-12-19 20:08:43,287 - INFO - Epoch [10] Batch [80/127] loss: 1.1256 
+2025-12-19 20:08:44,217 - INFO - Epoch [10] Batch [100/127] loss: 1.4593 
+2025-12-19 20:08:45,135 - INFO - Epoch [10] Batch [120/127] loss: 1.6359 
+2025-12-19 20:08:46,656 - INFO - Epoch: [10/15]Train loss: 1.1414 | Val loss: 1.3704
+2025-12-19 20:08:46,656 - INFO - --- Generating Sample Story for Epoch 10 ---
+2025-12-19 20:08:48,414 - INFO - Generated Story: shown in a stillness that felt both fragile, absolute. In the background, the ocean feels tense just before the rain
+2025-12-19 20:08:48,414 - INFO - Validation loss did not improve. Current best loss: 1.3344 (Patience: 3/5)
+2025-12-19 20:08:48,414 - INFO - Manually reducing LR from 5.00e-05 to 5.00e-06
+2025-12-19 20:08:49,529 - INFO - Checkpoint saved to checkpoints/latest.pth (resumption epoch: 10)
+2025-12-19 20:09:16,749 - INFO - Epoch [11] Batch [0/3625] loss: 1.0076 
+2025-12-19 20:11:45,658 - INFO - Epoch [11] Batch [1200/3625] loss: 1.1404 
+2025-12-19 20:14:12,505 - INFO - Epoch [11] Batch [2400/3625] loss: 1.1095 
+2025-12-19 20:16:41,888 - INFO - Epoch [11] Batch [3600/3625] loss: 1.0559 
+2025-12-19 20:17:15,731 - INFO - Epoch [11] Batch [0/127] loss: 1.1817 
+2025-12-19 20:17:16,659 - INFO - Epoch [11] Batch [20/127] loss: 1.5228 
+2025-12-19 20:17:17,568 - INFO - Epoch [11] Batch [40/127] loss: 1.4164 
+2025-12-19 20:17:18,482 - INFO - Epoch [11] Batch [60/127] loss: 1.4923 
+2025-12-19 20:17:19,394 - INFO - Epoch [11] Batch [80/127] loss: 1.1180 
+2025-12-19 20:17:20,302 - INFO - Epoch [11] Batch [100/127] loss: 1.4765 
+2025-12-19 20:17:21,230 - INFO - Epoch [11] Batch [120/127] loss: 1.6602 
+2025-12-19 20:17:22,753 - INFO - Epoch: [11/15]Train loss: 1.0717 | Val loss: 1.3897
+2025-12-19 20:17:22,753 - INFO - --- Generating Sample Story for Epoch 11 ---
+2025-12-19 20:17:25,886 - INFO - Generated Story: green fence in front of them with trees while everything else fades into the background. In the distant, the market feels sad just before the rain
+2025-12-19 20:17:25,886 - INFO - Validation loss did not improve. Current best loss: 1.3344 (Patience: 4/5)
+2025-12-19 20:17:26,958 - INFO - Checkpoint saved to checkpoints/latest.pth (resumption epoch: 11)
+2025-12-19 20:17:55,427 - INFO - Epoch [12] Batch [0/3625] loss: 1.0505 
+2025-12-19 20:20:25,267 - INFO - Epoch [12] Batch [1200/3625] loss: 1.0788 
+2025-12-19 20:22:54,422 - INFO - Epoch [12] Batch [2400/3625] loss: 0.9975 
+2025-12-19 20:25:21,576 - INFO - Epoch [12] Batch [3600/3625] loss: 0.9082 
+2025-12-19 20:25:53,393 - INFO - Epoch [12] Batch [0/127] loss: 1.1864 
+2025-12-19 20:25:54,398 - INFO - Epoch [12] Batch [20/127] loss: 1.5247 
+2025-12-19 20:25:55,373 - INFO - Epoch [12] Batch [40/127] loss: 1.4209 
+2025-12-19 20:25:56,365 - INFO - Epoch [12] Batch [60/127] loss: 1.5039 
+2025-12-19 20:25:57,271 - INFO - Epoch [12] Batch [80/127] loss: 1.1227 
+2025-12-19 20:25:58,165 - INFO - Epoch [12] Batch [100/127] loss: 1.4819 
+2025-12-19 20:25:59,049 - INFO - Epoch [12] Batch [120/127] loss: 1.6625 
+2025-12-19 20:26:00,422 - INFO - Epoch: [12/15]Train loss: 1.0600 | Val loss: 1.3931
+2025-12-19 20:26:00,427 - INFO - --- Generating Sample Story for Epoch 12 ---
+2025-12-19 20:26:02,240 - INFO - Generated Story: world moves quietly around. In the background, the city feels sad in the early morning
+2025-12-19 20:26:02,240 - INFO - Validation loss did not improve. Current best loss: 1.3344 (Patience: 5/5)
+2025-12-19 20:26:02,240 - INFO - Early stopping triggered after 5 epochs without improvement
+2025-12-19 20:27:02,311 - INFO - Logging initialize successfully
+2025-12-19 20:27:02,441 - INFO - Loaded 29000 rows for split='train'.
+2025-12-19 20:27:02,564 - INFO - Loaded 1014 rows for split='val'.
+2025-12-19 20:27:03,835 - INFO - Built 29000 samples from annotaions
+2025-12-19 20:27:03,836 - INFO - Total train samples: 29000
+2025-12-19 20:27:03,872 - INFO - Built 1014 samples from annotaions
+2025-12-19 20:27:03,872 - INFO - Total val samples: 1014
+2025-12-19 20:27:03,933 - INFO - Built 29000 samples for story 
+2025-12-19 20:27:03,941 - INFO - Built 1014 samples for story 
+2025-12-19 20:27:04,090 - INFO - Cleaned data saved to data/processed\stories_train.jsonl
+2025-12-19 20:27:04,096 - INFO - Cleaned data saved to data/processed\stories_val.jsonl
+2025-12-19 20:27:09,297 - INFO - Model initialized. Trainable parameters: 73250304
+2025-12-19 20:27:11,091 - INFO - Checkpoint loaded from checkpoints/latest.pth. Resuming at epoch 11. (Scheduler restored: True, Scaler restored: True)
+2025-12-19 20:27:11,091 - INFO - Checkpoint loaded from checkpoints/latest.pth (LATEST (Better Performance)). Resuming training from epoch 12, best loss tracked: 1.3344
+2025-12-19 20:27:39,666 - INFO - Epoch [12] Batch [0/3625] loss: 1.6054 
+2025-12-19 20:30:06,881 - INFO - Epoch [12] Batch [1200/3625] loss: 1.4167 
+2025-12-19 20:32:33,773 - INFO - Epoch [12] Batch [2400/3625] loss: 1.0052 
+2025-12-19 20:35:01,000 - INFO - Epoch [12] Batch [3600/3625] loss: 1.2652 
+2025-12-19 20:35:33,608 - INFO - Epoch [12] Batch [0/127] loss: 1.0695 
+2025-12-19 20:35:34,504 - INFO - Epoch [12] Batch [20/127] loss: 1.1930 
+2025-12-19 20:35:35,368 - INFO - Epoch [12] Batch [40/127] loss: 1.2969 
+2025-12-19 20:35:36,236 - INFO - Epoch [12] Batch [60/127] loss: 1.3630 
+2025-12-19 20:35:37,096 - INFO - Epoch [12] Batch [80/127] loss: 1.3017 
+2025-12-19 20:35:37,967 - INFO - Epoch [12] Batch [100/127] loss: 1.3170 
+2025-12-19 20:35:38,831 - INFO - Epoch [12] Batch [120/127] loss: 1.2878 
+2025-12-19 20:35:40,209 - INFO - Epoch: [12/20]Train loss: 1.2682 | Val loss: 1.3285
+2025-12-19 20:35:40,210 - INFO - --- Generating Sample Story for Epoch 12 ---
+2025-12-19 20:35:42,336 - INFO - Generated Story: and cowboy hat until the feeling was all that remained. In the background, the park feels sad under the afternoon sun
+2025-12-19 20:35:42,336 - INFO - Validation loss improved from 1.3344 to 1.3285. Saving Best model.
+2025-12-19 20:35:43,502 - INFO - Checkpoint saved to checkpoints/best.pth (resumption epoch: 12)
+2025-12-19 20:35:44,618 - INFO - Checkpoint saved to checkpoints/latest.pth (resumption epoch: 12)
+2025-12-19 20:36:12,245 - INFO - Epoch [13] Batch [0/3625] loss: 1.0117 
+2025-12-19 20:38:43,328 - INFO - Epoch [13] Batch [1200/3625] loss: 1.1268 
+2025-12-19 20:41:22,572 - INFO - Epoch [13] Batch [2400/3625] loss: 1.2005 
+2025-12-19 20:44:10,682 - INFO - Epoch [13] Batch [3600/3625] loss: 1.4589 
+2025-12-19 20:44:56,977 - INFO - Epoch [13] Batch [0/127] loss: 1.0666 
+2025-12-19 20:44:58,154 - INFO - Epoch [13] Batch [20/127] loss: 1.1906 
+2025-12-19 20:44:59,350 - INFO - Epoch [13] Batch [40/127] loss: 1.2860 
+2025-12-19 20:45:00,523 - INFO - Epoch [13] Batch [60/127] loss: 1.3590 
+2025-12-19 20:45:01,710 - INFO - Epoch [13] Batch [80/127] loss: 1.2950 
+2025-12-19 20:45:02,863 - INFO - Epoch [13] Batch [100/127] loss: 1.3121 
+2025-12-19 20:45:04,020 - INFO - Epoch [13] Batch [120/127] loss: 1.2795 
+2025-12-19 20:45:05,712 - INFO - Epoch: [13/20]Train loss: 1.2545 | Val loss: 1.3225
+2025-12-19 20:45:05,712 - INFO - --- Generating Sample Story for Epoch 13 ---
+2025-12-19 20:45:07,876 - INFO - Generated Story: , holding flowers until the feeling was all that remained. In the background, the room feels happy under the afternoon sun
+2025-12-19 20:45:07,877 - INFO - Validation loss improved from 1.3285 to 1.3225. Saving Best model.
+2025-12-19 20:45:09,391 - INFO - Checkpoint saved to checkpoints/best.pth (resumption epoch: 13)
+2025-12-19 20:45:10,876 - INFO - Checkpoint saved to checkpoints/latest.pth (resumption epoch: 13)
+2025-12-19 20:45:43,333 - INFO - Epoch [14] Batch [0/3625] loss: 1.0530 
+2025-12-19 20:48:31,198 - INFO - Epoch [14] Batch [1200/3625] loss: 1.0752 
+2025-12-19 20:51:21,046 - INFO - Epoch [14] Batch [2400/3625] loss: 1.2118 
+2025-12-19 20:54:10,433 - INFO - Epoch [14] Batch [3600/3625] loss: 1.3746 
+2025-12-19 20:54:56,896 - INFO - Epoch [14] Batch [0/127] loss: 1.0638 
+2025-12-19 20:54:58,093 - INFO - Epoch [14] Batch [20/127] loss: 1.1966 
+2025-12-19 20:54:59,281 - INFO - Epoch [14] Batch [40/127] loss: 1.2800 
+2025-12-19 20:55:00,437 - INFO - Epoch [14] Batch [60/127] loss: 1.3601 
+2025-12-19 20:55:01,627 - INFO - Epoch [14] Batch [80/127] loss: 1.2921 
+2025-12-19 20:55:02,791 - INFO - Epoch [14] Batch [100/127] loss: 1.3100 
+2025-12-19 20:55:03,958 - INFO - Epoch [14] Batch [120/127] loss: 1.2753 
+2025-12-19 20:55:05,718 - INFO - Epoch: [14/20]Train loss: 1.2472 | Val loss: 1.3205
+2025-12-19 20:55:05,718 - INFO - --- Generating Sample Story for Epoch 14 ---
+2025-12-19 20:55:08,129 - INFO - Generated Story: grass with trees and the truth hung heavy in the silence. In the background, the street feels sad at the hour of midnight
+2025-12-19 20:55:08,130 - INFO - Validation loss improved from 1.3225 to 1.3205. Saving Best model.
+2025-12-19 20:55:09,590 - INFO - Checkpoint saved to checkpoints/best.pth (resumption epoch: 14)
+2025-12-19 20:55:11,074 - INFO - Checkpoint saved to checkpoints/latest.pth (resumption epoch: 14)
+2025-12-19 20:55:47,927 - INFO - Epoch [15] Batch [0/3625] loss: 1.1066 
+2025-12-20 11:49:32,179 - INFO - Logging initialize successfully
+2025-12-20 11:49:32,303 - INFO - Loaded 29000 rows for split='train'.
+2025-12-20 11:49:32,412 - INFO - Loaded 1014 rows for split='val'.
+2025-12-20 11:49:33,655 - INFO - Built 29000 samples from annotaions
+2025-12-20 11:49:33,661 - INFO - Total train samples: 29000
+2025-12-20 11:49:33,696 - INFO - Built 1014 samples from annotaions
+2025-12-20 11:49:33,696 - INFO - Total val samples: 1014
+2025-12-20 11:49:33,750 - INFO - Built 29000 samples for story 
+2025-12-20 11:49:33,765 - INFO - Built 1014 samples for story 
+2025-12-20 11:49:33,898 - INFO - Cleaned data saved to data/processed\stories_train.jsonl
+2025-12-20 11:49:33,914 - INFO - Cleaned data saved to data/processed\stories_val.jsonl
+2025-12-20 11:49:39,431 - INFO - Model initialized. Trainable parameters: 73250304
+2025-12-20 11:49:41,136 - INFO - Checkpoint loaded from checkpoints/latest.pth. Resuming at epoch 14. (Scheduler restored: True, Scaler restored: True)
+2025-12-20 11:49:41,136 - INFO - Checkpoint loaded from checkpoints/latest.pth (LATEST (Better Performance)). Resuming training from epoch 15, best loss tracked: 1.3205
+2025-12-20 11:50:08,642 - INFO - Epoch [15] Batch [0/3625] loss: 1.4294 
+2025-12-20 11:52:35,327 - INFO - Epoch [15] Batch [1200/3625] loss: 1.1744 
+2025-12-20 11:55:04,621 - INFO - Epoch [15] Batch [2400/3625] loss: 1.0728 
+2025-12-20 11:57:33,647 - INFO - Epoch [15] Batch [3600/3625] loss: 1.0991 
+2025-12-20 11:58:07,793 - INFO - Epoch [15] Batch [0/127] loss: 1.2055 
+2025-12-20 11:58:08,724 - INFO - Epoch [15] Batch [20/127] loss: 1.2609 
+2025-12-20 11:58:09,626 - INFO - Epoch [15] Batch [40/127] loss: 1.4494 
+2025-12-20 11:58:10,533 - INFO - Epoch [15] Batch [60/127] loss: 1.2946 
+2025-12-20 11:58:11,435 - INFO - Epoch [15] Batch [80/127] loss: 0.9649 
+2025-12-20 11:58:12,348 - INFO - Epoch [15] Batch [100/127] loss: 1.3366 
+2025-12-20 11:58:13,257 - INFO - Epoch [15] Batch [120/127] loss: 1.3461 
+2025-12-20 11:58:14,794 - INFO - Epoch: [15/20]Train loss: 1.2531 | Val loss: 1.3020
+2025-12-20 11:58:14,796 - INFO - --- Generating Sample Story for Epoch 15 ---
+2025-12-20 11:58:17,206 - INFO - Generated Story: eled sandals is being shown in a stillness that felt both fragile and absolute. In the background, the field feels lonely late at night
+2025-12-20 11:58:17,206 - INFO - Validation loss improved from 1.3205 to 1.3020. Saving Best model.
+2025-12-20 11:58:18,346 - INFO - Checkpoint saved to checkpoints/best.pth (resumption epoch: 15)
+2025-12-20 11:58:19,451 - INFO - Checkpoint saved to checkpoints/latest.pth (resumption epoch: 15)
+2025-12-20 11:58:47,457 - INFO - Epoch [16] Batch [0/3625] loss: 1.1742 
+2025-12-20 12:01:16,722 - INFO - Epoch [16] Batch [1200/3625] loss: 1.3870 
+2025-12-20 12:03:43,827 - INFO - Epoch [16] Batch [2400/3625] loss: 1.1585 
+2025-12-20 12:06:10,660 - INFO - Epoch [16] Batch [3600/3625] loss: 1.0825 
+2025-12-20 12:06:43,051 - INFO - Epoch [16] Batch [0/127] loss: 1.2034 
+2025-12-20 12:06:43,934 - INFO - Epoch [16] Batch [20/127] loss: 1.2602 
+2025-12-20 12:06:44,802 - INFO - Epoch [16] Batch [40/127] loss: 1.4487 
+2025-12-20 12:06:45,660 - INFO - Epoch [16] Batch [60/127] loss: 1.2950 
+2025-12-20 12:06:46,521 - INFO - Epoch [16] Batch [80/127] loss: 0.9674 
+2025-12-20 12:06:47,394 - INFO - Epoch [16] Batch [100/127] loss: 1.3384 
+2025-12-20 12:06:48,252 - INFO - Epoch [16] Batch [120/127] loss: 1.3433 
+2025-12-20 12:06:49,642 - INFO - Epoch: [16/20]Train loss: 1.2471 | Val loss: 1.3006
+2025-12-20 12:06:49,642 - INFO - --- Generating Sample Story for Epoch 16 ---
+2025-12-20 12:06:52,629 - INFO - Generated Story: in a stillness that felt both fragile and absolute. In the background, the city feels lonely at the hour of midnight
+2025-12-20 12:06:52,629 - INFO - Validation loss improved from 1.3020 to 1.3006. Saving Best model.
+2025-12-20 12:06:53,744 - INFO - Checkpoint saved to checkpoints/best.pth (resumption epoch: 16)
+2025-12-20 12:06:54,827 - INFO - Checkpoint saved to checkpoints/latest.pth (resumption epoch: 16)
+2025-12-20 12:07:21,913 - INFO - Epoch [17] Batch [0/3625] loss: 1.1867 
+2025-12-20 12:09:48,867 - INFO - Epoch [17] Batch [1200/3625] loss: 1.0936 
+2025-12-20 12:12:16,766 - INFO - Epoch [17] Batch [2400/3625] loss: 0.9957 
+2025-12-20 12:14:46,029 - INFO - Epoch [17] Batch [3600/3625] loss: 1.1492 
+2025-12-20 12:15:17,095 - INFO - Epoch [17] Batch [0/127] loss: 1.2011 
+2025-12-20 12:15:18,016 - INFO - Epoch [17] Batch [20/127] loss: 1.2606 
+2025-12-20 12:15:18,932 - INFO - Epoch [17] Batch [40/127] loss: 1.4462 
+2025-12-20 12:15:19,828 - INFO - Epoch [17] Batch [60/127] loss: 1.2931 
+2025-12-20 12:15:20,740 - INFO - Epoch [17] Batch [80/127] loss: 0.9709 
+2025-12-20 12:15:21,647 - INFO - Epoch [17] Batch [100/127] loss: 1.3352 
+2025-12-20 12:15:22,549 - INFO - Epoch [17] Batch [120/127] loss: 1.3422 
+2025-12-20 12:15:24,013 - INFO - Epoch: [17/20]Train loss: 1.2416 | Val loss: 1.2994
+2025-12-20 12:15:24,013 - INFO - --- Generating Sample Story for Epoch 17 ---
+2025-12-20 12:15:25,742 - INFO - Generated Story: feeling was all that remained. In the background, the field feels calm as the evening settles
+2025-12-20 12:15:25,744 - INFO - Validation loss improved from 1.3006 to 1.2994. Saving Best model.
+2025-12-20 12:15:26,861 - INFO - Checkpoint saved to checkpoints/best.pth (resumption epoch: 17)
+2025-12-20 12:15:27,980 - INFO - Checkpoint saved to checkpoints/latest.pth (resumption epoch: 17)
+2025-12-20 12:15:55,168 - INFO - Epoch [18] Batch [0/3625] loss: 1.0620 
+2025-12-20 12:18:24,420 - INFO - Epoch [18] Batch [1200/3625] loss: 1.1116 
+2025-12-20 12:20:54,105 - INFO - Epoch [18] Batch [2400/3625] loss: 1.1122 
+2025-12-20 12:23:22,129 - INFO - Epoch [18] Batch [3600/3625] loss: 1.1885 
+2025-12-20 12:23:54,342 - INFO - Epoch [18] Batch [0/127] loss: 1.2005 
+2025-12-20 12:23:55,233 - INFO - Epoch [18] Batch [20/127] loss: 1.2598 
+2025-12-20 12:23:56,092 - INFO - Epoch [18] Batch [40/127] loss: 1.4454 
+2025-12-20 12:23:56,948 - INFO - Epoch [18] Batch [60/127] loss: 1.2897 
+2025-12-20 12:23:57,813 - INFO - Epoch [18] Batch [80/127] loss: 0.9687 
+2025-12-20 12:23:58,673 - INFO - Epoch [18] Batch [100/127] loss: 1.3363 
+2025-12-20 12:23:59,539 - INFO - Epoch [18] Batch [120/127] loss: 1.3401 
+2025-12-20 12:24:00,918 - INFO - Epoch: [18/20]Train loss: 1.2364 | Val loss: 1.2989
+2025-12-20 12:24:00,918 - INFO - --- Generating Sample Story for Epoch 18 ---
+2025-12-20 12:24:03,104 - INFO - Generated Story: middle of an open park while everything else fades into the background. In the foreground, the stadium feels cheerful late at night
+2025-12-20 12:24:03,104 - INFO - Validation loss improved from 1.2994 to 1.2989. Saving Best model.
+2025-12-20 12:24:04,240 - INFO - Checkpoint saved to checkpoints/best.pth (resumption epoch: 18)
+2025-12-20 12:24:05,308 - INFO - Checkpoint saved to checkpoints/latest.pth (resumption epoch: 18)
+2025-12-20 12:24:32,016 - INFO - Epoch [19] Batch [0/3625] loss: 1.3722 
+2025-12-20 12:26:59,208 - INFO - Epoch [19] Batch [1200/3625] loss: 1.1604 
+2025-12-20 12:29:27,659 - INFO - Epoch [19] Batch [2400/3625] loss: 1.0563 
+2025-12-20 12:31:56,991 - INFO - Epoch [19] Batch [3600/3625] loss: 1.3727 
+2025-12-20 12:32:28,396 - INFO - Epoch [19] Batch [0/127] loss: 1.2030 
+2025-12-20 12:32:29,324 - INFO - Epoch [19] Batch [20/127] loss: 1.2620 
+2025-12-20 12:32:30,219 - INFO - Epoch [19] Batch [40/127] loss: 1.4441 
+2025-12-20 12:32:31,122 - INFO - Epoch [19] Batch [60/127] loss: 1.2897 
+2025-12-20 12:32:32,022 - INFO - Epoch [19] Batch [80/127] loss: 0.9715 
+2025-12-20 12:32:32,917 - INFO - Epoch [19] Batch [100/127] loss: 1.3348 
+2025-12-20 12:32:33,822 - INFO - Epoch [19] Batch [120/127] loss: 1.3408 
+2025-12-20 12:32:35,293 - INFO - Epoch: [19/20]Train loss: 1.2320 | Val loss: 1.2989
+2025-12-20 12:32:35,293 - INFO - --- Generating Sample Story for Epoch 19 ---
+2025-12-20 12:32:36,929 - INFO - Generated Story: and the truth hung heavy in the silence. In the background, the stadium feels sad as the evening settles
+2025-12-20 12:32:36,929 - INFO - Validation loss improved from 1.2989 to 1.2989. Saving Best model.
+2025-12-20 12:32:38,063 - INFO - Checkpoint saved to checkpoints/best.pth (resumption epoch: 19)
+2025-12-20 12:32:39,194 - INFO - Checkpoint saved to checkpoints/latest.pth (resumption epoch: 19)
+2025-12-20 12:33:06,291 - INFO - Epoch [20] Batch [0/3625] loss: 1.3846 
+2025-12-20 12:35:33,201 - INFO - Epoch [20] Batch [1200/3625] loss: 1.0709 
+2025-12-20 12:38:00,118 - INFO - Epoch [20] Batch [2400/3625] loss: 1.3755 
+2025-12-20 12:40:27,011 - INFO - Epoch [20] Batch [3600/3625] loss: 1.1362 
+2025-12-20 12:40:57,458 - INFO - Epoch [20] Batch [0/127] loss: 1.2025 
+2025-12-20 12:40:58,346 - INFO - Epoch [20] Batch [20/127] loss: 1.2597 
+2025-12-20 12:40:59,208 - INFO - Epoch [20] Batch [40/127] loss: 1.4446 
+2025-12-20 12:41:00,072 - INFO - Epoch [20] Batch [60/127] loss: 1.2900 
+2025-12-20 12:41:00,931 - INFO - Epoch [20] Batch [80/127] loss: 0.9736 
+2025-12-20 12:41:01,803 - INFO - Epoch [20] Batch [100/127] loss: 1.3335 
+2025-12-20 12:41:02,659 - INFO - Epoch [20] Batch [120/127] loss: 1.3362 
+2025-12-20 12:41:04,005 - INFO - Epoch: [20/20]Train loss: 1.2275 | Val loss: 1.2987
+2025-12-20 12:41:04,005 - INFO - --- Generating Sample Story for Epoch 20 ---
+2025-12-20 12:41:05,990 - INFO - Generated Story: orange shirt walking on the sidewalk until the feeling was all that remained. In the background, the park feels cheerful as the evening settles
+2025-12-20 12:41:05,990 - INFO - Validation loss improved from 1.2989 to 1.2987. Saving Best model.
+2025-12-20 12:41:07,129 - INFO - Checkpoint saved to checkpoints/best.pth (resumption epoch: 20)
+2025-12-20 12:41:08,285 - INFO - Checkpoint saved to checkpoints/latest.pth (resumption epoch: 20)
