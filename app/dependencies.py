@@ -28,6 +28,6 @@ model = MultimodelGPT2(
     num_unfreeze_layers=num_unfreeze_layers,
 ).to(DEVICE)
 
-checkpoint = torch.load("checkpoint/best.pth",map_location=DEVICE)
+checkpoint = torch.load("checkpoint/best.pth", map_location=DEVICE)
 model.load_state_dict(checkpoint["model_state"])
 model.eval()
