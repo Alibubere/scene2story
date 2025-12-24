@@ -1,6 +1,12 @@
 import torch
 import torch.nn as nn
-from transformers import GPT2LMHeadModel
+from transformers import GPT2LMHeadModel, AutoModelForCausalLM
+
+# Try to import GPT2LMHeadModel, fallback to AutoModelForCausalLM if not available
+try:
+    from transformers import GPT2LMHeadModel
+except ImportError:
+    GPT2LMHeadModel = AutoModelForCausalLM
 
 
 class MultimodelGPT2(nn.Module):
