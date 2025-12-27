@@ -14,6 +14,12 @@ class MultimodelGPT2(nn.Module):
         super().__init__()
 
         self.gpt2 = GPT2LMHeadModel.from_pretrained(gpt2_model_name)
+        
+        # Resize embeddings to handle new special tokens
+        # GPT-2 base has 50257 tokens, we add 3 more: [IMG], [SCENE], [STORY]
+        new_vocab_size = self.gpt2.config.vocab_size + 3
+        self.gpt2.resize_token_embeddings(new_vocab_size)
+        
         self.config = self.gpt2.config
         self.hidden_size = self.config.hidden_size
         self.num_img_tokens = num_img_tokens
@@ -56,7 +62,7 @@ class MultimodelGPT2(nn.Module):
         full_embeds = torch.cat([bos_embeds, img_embeds, text_embeds], dim=1)
         
         if attention_mask is not None:
-            prefix_mask = torch.ones((batch_size, 5), device=img_features.device)
+            prefix_mask = torch.ones((batch_size, self.prefix_len), device=img_features.device)
             full_mask = torch.cat([prefix_mask, attention_mask], dim=1)
         else:
             full_mask = None
@@ -66,10 +72,14 @@ class MultimodelGPT2(nn.Module):
             prefix_labels = torch.full((batch_size, self.prefix_len), -100, device=labels.device)
             full_labels = torch.cat([prefix_labels, labels], dim=1)
             
+        seq_len = full_embeds.shape[1]
+        position_ids = torch.arange(seq_len, device=img_features.device).unsqueeze(0).repeat(batch_size, 1)
+
         outputs = self.gpt2(
             inputs_embeds=full_embeds,
             attention_mask=full_mask,
             labels=full_labels,
+            position_ids=position_ids,
             return_dict=True,
         )
 

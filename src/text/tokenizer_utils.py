@@ -17,6 +17,7 @@ def get_gpt2_tokenizer(model_name: str = "gpt2"):
 
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
+        tokenizer.pad_token_id = tokenizer.eos_token_id
 
     new_tokens = ["[IMG]","[SCENE]","[STORY]"]
     tokenizer.add_special_tokens({"additional_special_tokens": new_tokens})

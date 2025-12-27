@@ -36,9 +36,6 @@ def train_one_epoch(
                 img_feats = clip_encoder(images)
 
             with amp.autocast(device_type="cuda",enabled=use_amp):
-                # Convert features to match autocast precision
-                if use_amp:
-                    img_feats = img_feats.half()
                 loss, logits = model(img_feats, input_ids, attn_mask, labels)
 
             if loss is None:
@@ -116,14 +113,11 @@ def validate_one_epoch(
                 img_feats = clip_encoder(images)
 
                 with amp.autocast(device_type="cuda",enabled=use_amp):
-                    # Convert features to match autocast precision
-                    if use_amp:
-                        img_feats = img_feats.half()
                     loss , logits = model(img_feats, input_ids, attn_mask, labels)
 
                 total_batch_loss += loss.item()
 
-                if batch_idx % 20 == 0:
+                if batch_idx % 60 == 0:
                     logging.info(
                         f"Epoch [{epoch}] Batch [{batch_idx}/{len(dataloader)}] "
                         f"loss: {loss.item():.4f} "

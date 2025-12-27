@@ -48,7 +48,7 @@ def load_model():
         ).to(DEVICE)
         
         checkpoint = torch.load(best_model_path, map_location=DEVICE)
-        model.load_state_dict(checkpoint["model_state"], strict=False)
+        model.load_state_dict(checkpoint["model_state"])
         model.eval()
         
         return model, resnet, tokenizer, transform, DEVICE

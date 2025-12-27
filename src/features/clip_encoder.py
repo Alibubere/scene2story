@@ -26,6 +26,9 @@ def get_pretrained_clip_encoder(device: torch.device = None):
     # Load CLIP model
     model, _ = clip.load("ViT-B/32", device=device)
     
+    # Force to FP32 to avoid dtype mismatch
+    model = model.float()
+    
     # Extract just the visual encoder
     visual_encoder = model.visual
     

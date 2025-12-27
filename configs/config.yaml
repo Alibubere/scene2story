@@ -23,7 +23,7 @@ training:
   weight_decay: 0.01
   num_workers: 4
   resume_from_checkpoint: True
-  use_amp: True
+  use_amp: False
 
 checkpoint:
   dir: checkpoints/
