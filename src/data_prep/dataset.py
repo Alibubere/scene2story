@@ -1,23 +1,21 @@
 from torch.utils.data import Dataset
-from src.features.extract_image_features import get_resnet50_transform
 import logging
 import json
 import os
 from PIL import Image
-from src.text.tokenizer_utils import get_gpt2_tokenizer, tokenize_story
-import torch
+from src.text.tokenizer_utils import get_gpt2_tokenizer, tokenize_multimodal_entry
 
 
 class StoryImageDataset(Dataset):
 
-    def __init__(self, data_path: str, max_length: int = 128):
+    def __init__(self, data_path: str, image_transform,max_length: int = 128):
         """
         Args:
             data_path (str): Path to the .jsonl file containing image paths and stories.
             max_length (int): Max sequence length for the text tokens.
         """
         self.data_path = data_path
-        self.transform = get_resnet50_transform()
+        self.transform = image_transform
         self.data = []
         self.tokenizer = get_gpt2_tokenizer()
         self.max_length = max_length
@@ -54,7 +52,7 @@ class StoryImageDataset(Dataset):
             logging.exception(f"Failed to load or transform image at {image_path}")
             raise RuntimeError(f"Could not load image at path: {image_path}")
 
-        token_data = tokenize_story(
+        token_data = tokenize_multimodal_entry(
             self.tokenizer, story=story, max_length=self.max_length
         )
         input_ids = token_data["input_ids"]

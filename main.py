@@ -12,7 +12,6 @@ from src.data_prep.story_generator import build_story_dataset
 from src.data_prep.save_story_dataset import save_clean_dataset
 from src.data_prep.dataset import StoryImageDataset
 from src.text.tokenizer_utils import get_gpt2_tokenizer
-from src.models.decoder import ImageConditionedTransformerDecoder
 from src.features.extract_image_features import get_pretrained_clip_encoder
 from src.data_prep.dataloader import get_dataloader
 from src.models.training_utils import (
