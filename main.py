@@ -12,7 +12,8 @@ from src.data_prep.story_generator import build_story_dataset
 from src.data_prep.save_story_dataset import save_clean_dataset
 from src.data_prep.dataset import StoryImageDataset
 from src.text.tokenizer_utils import get_gpt2_tokenizer
-from src.features.extract_image_features import get_pretrained_clip_encoder
+from src.features.extract_image_features import get_resnet50_transform
+from src.features.clip_encoder import get_clip_processor, get_pretrained_clip_encoder 
 from src.data_prep.dataloader import get_dataloader
 from src.models.training_utils import (
     get_optimizer,
@@ -107,11 +108,16 @@ def main():
 
     save_clean_dataset(train_stories, save_dir, split)
     save_clean_dataset(val_stories, save_dir, split="val")
-    train_dataset = StoryImageDataset(train_data_path)
-    val_dataset = StoryImageDataset(val_data_path)
+
+    processor = get_clip_processor()
+    transform = processor
+
+    train_dataset = StoryImageDataset(train_data_path,image_transform=transform)
+    val_dataset = StoryImageDataset(val_data_path,image_transform=transform)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    processor = get_pretrained_clip_encoder(device)
+
+    clip_encoder = get_pretrained_clip_encoder(device)
 
     model = MultimodelGPT2(
         gpt2_model_name=gpt2_model_name,
@@ -155,7 +161,7 @@ def main():
         device=device,
         train_dataloader=train_dataloader,
         val_dataloader=val_dataloader,
-        processor=processor,
+        clip_encoder=clip_encoder,
         use_amp=use_amp,
         fixed_image_path=fixed_image_path,
     )

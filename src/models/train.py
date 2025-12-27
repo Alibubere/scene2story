@@ -12,7 +12,7 @@ def train_one_epoch(
     device,
     epoch: int,
     scheduler,
-    processor,
+    clip_encoder,
     use_amp: bool = False,
     scaler=None,
 ):
@@ -33,10 +33,12 @@ def train_one_epoch(
             labels = labels.to(device).long()
 
             with torch.no_grad():
-                img_feats = processor(images)
+                img_feats = clip_encoder(images)
 
             with amp.autocast(device_type="cuda",enabled=use_amp):
-
+                # Convert features to match autocast precision
+                if use_amp:
+                    img_feats = img_feats.half()
                 loss, logits = model(img_feats, input_ids, attn_mask, labels)
 
             if loss is None:
@@ -91,7 +93,7 @@ def train_one_epoch(
 
 
 def validate_one_epoch(
-    model, dataloader, device, epoch: int, processor, use_amp: bool = False
+    model, dataloader, device, epoch: int, clip_encoder, use_amp: bool = False
 ):
 
     model.to(device)
@@ -111,9 +113,12 @@ def validate_one_epoch(
                 attn_mask = attn_mask.to(device)
                 labels = labels.to(device).long()
 
-                img_feats = processor(images)
+                img_feats = clip_encoder(images)
 
                 with amp.autocast(device_type="cuda",enabled=use_amp):
+                    # Convert features to match autocast precision
+                    if use_amp:
+                        img_feats = img_feats.half()
                     loss , logits = model(img_feats, input_ids, attn_mask, labels)
 
                 total_batch_loss += loss.item()

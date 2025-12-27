@@ -27,14 +27,8 @@ def caption_to_story(caption: str) -> str:
     caption = caption.rstrip(".")
 
     caption = caption[0].upper() + caption[1:]
-
-    sentence1 = caption + "."
-
-    sentence2 = random.choice(NEUTRAL_FOLLOWUPS)
-
-    story = sentence1 + " " + sentence2
-
-    return story
+    
+    return caption + "."
 
 def build_story_dataset(samples: List[Dict]) -> List[Dict]:
     """
@@ -56,7 +50,6 @@ def build_story_dataset(samples: List[Dict]) -> List[Dict]:
     for sample in samples:
         image_path = sample["image_path"]
         caption = sample["captions"][0]
-        split = sample["split"]
         story = caption_to_story(caption)
 
         new_samples.append({

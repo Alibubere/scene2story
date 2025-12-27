@@ -53,7 +53,7 @@ class StoryImageDataset(Dataset):
             raise RuntimeError(f"Could not load image at path: {image_path}")
 
         token_data = tokenize_multimodal_entry(
-            self.tokenizer, story=story, max_length=self.max_length
+            self.tokenizer, scene_text=sample.get("caption", ""), story_text=story, max_length=self.max_length
         )
         input_ids = token_data["input_ids"]
         attention_mask = token_data["attention_mask"]

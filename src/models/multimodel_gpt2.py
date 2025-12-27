@@ -1,14 +1,6 @@
 import torch
 import torch.nn as nn
-from transformers import AutoModelForCausalLM, GPT2Config
-
-# Create a proper GPT2LMHeadModel class for compatibility
-class GPT2LMHeadModel(AutoModelForCausalLM):
-    config_class = GPT2Config
-    
-    @classmethod
-    def from_pretrained(cls, model_name, **kwargs):
-        return AutoModelForCausalLM.from_pretrained(model_name, **kwargs)
+from transformers import GPT2LMHeadModel, GPT2Config
 
 
 class MultimodelGPT2(nn.Module):

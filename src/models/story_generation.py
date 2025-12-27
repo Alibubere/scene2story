@@ -5,7 +5,7 @@ from src.text.tokenizer_utils import get_gpt2_tokenizer
 
 def generate_story_from_fixed_image(
     model, 
-    processor, 
+    clip_encoder, 
     device, 
     image_path: str, 
     prompt: str = "A story about", 
@@ -16,7 +16,7 @@ def generate_story_from_fixed_image(
     Can be used inside train_loop.py or in a standalone test script.
     """
     model.eval()
-    processor.eval()
+    clip_encoder.eval()
     
     tokenizer = get_gpt2_tokenizer()
     transform = get_resnet50_transform()
@@ -25,7 +25,7 @@ def generate_story_from_fixed_image(
     image_tensor = transform(image).unsqueeze(0).to(device)
     
     with torch.no_grad():
-        img_feats = processor(image_tensor)
+        img_feats = clip_encoder(image_tensor)
         encoded_prompt = tokenizer(prompt, return_tensors="pt").to(device)
     
         output_ids = model.generate(
