@@ -2,44 +2,11 @@ from typing import List, Dict, Any
 import random
 import logging
 
-moods = [
-    "calm",
-    "cheerful",
-    "tense",
-    "quiet",
-    "busy",
-    "lonely",
-    "happy",
-    "sad",
-    "grateful",
-    "playful",
-]
-environment_words = [
-    "street",
-    "park",
-    "market",
-    "room",
-    "city",
-    "field",
-    "ocean",
-    "stadium",
-]
-time_of_day = [
-    "in the early morning",
-    "under the afternoon sun",
-    "as the evening settles",
-    "late at night",
-    "just before the rain",
-    "at the hour of midnight",
-]
-atmosphere_endings = [
-    "as the world moves quietly around",
-    "while everything else fades into the background",
-    "and the truth hung heavy in the silence",
-    "until the feeling was all that remained",
-    "a memory instantly forged in the mind",
-    "with a sense of quiet, profound finality",
-    "in a stillness that felt both fragile and absolute",
+NEUTRAL_FOLLOWUPS = [
+    "The image shows a simple moment.",
+    "The scene captures an everyday situation.",
+    "This appears to be an ordinary scene.",
+    "The image presents a clear visual moment."
 ]
 
 
@@ -49,26 +16,25 @@ def caption_to_story(caption: str) -> str:
 
     Steps:
     1. Clean the caption text.
-    2. Add descriptive modifiers (adjectives, mood words, etc.).
-    3. Build sentence 1 using the caption as the base.
-    4. Add a randomly chosen environmental detail.
-    5. Build sentence 2 to create atmosphere.
-    6. Return the combined story string.
+    2. Build sentence 1 using the caption as the base.
+    3. Build sentence 2 to create atmosphere.
+    4. Return the combined story string.
     """
-    if caption:
-        if not caption[0].isupper():
-            caption = caption[0].upper() + caption[1:]
+    if caption is None or len(caption.strip()) == 0:
+        return ""
 
     caption = caption.strip()
+    caption = caption.rstrip(".")
 
-    sentence1 = caption.strip(".") + " " + random.choice(atmosphere_endings).strip(".")
+    caption = caption[0].upper() + caption[1:]
 
-    sentence2 = f"In the background, the {random.choice(environment_words)} feels {random.choice(moods)} {random.choice(time_of_day)}"
+    sentence1 = caption + "."
 
-    story = sentence1 + "." + " " + sentence2
+    sentence2 = random.choice(NEUTRAL_FOLLOWUPS)
+
+    story = sentence1 + " " + sentence2
 
     return story
-
 
 def build_story_dataset(samples: List[Dict]) -> List[Dict]:
     """
@@ -89,19 +55,18 @@ def build_story_dataset(samples: List[Dict]) -> List[Dict]:
 
     for sample in samples:
         image_path = sample["image_path"]
-        random_caption = random.choice(sample["captions"])
-        img_id = sample["img_id"]
+        caption = sample["captions"][0]
         split = sample["split"]
-        story = caption_to_story(random_caption)
+        story = caption_to_story(caption)
 
-        new_dict: Dict[str, Any] = {
+        new_samples.append({
             "image_path": image_path,
-            "caption": random_caption,
+            "caption": caption,
             "story": story,
-            "img_id": img_id,
-            "split": split,
-        }
-        new_samples.append(new_dict)
+            "img_id": sample.get("img_id"),
+            "split": sample.get("split"),
+        })
+
 
     logging.info(f"Built {len(new_samples)} samples for story ")
 

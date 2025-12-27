@@ -18,28 +18,26 @@ def get_gpt2_tokenizer(model_name: str = "gpt2"):
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
 
-    tokenizer.add_special_tokens({"additional_special_tokens": ["[IMG]"]})
-
+    new_tokens = ["[IMG]","[SCENE]","[STORY]"]
+    tokenizer.add_special_tokens({"additional_special_tokens": new_tokens})
     return tokenizer
 
-
-def tokenize_story(tokenizer, story: str, max_length: int = 128):
+def tokenize_multimodal_entry(tokenizer, scene_text: str, story_text: str, max_length: int = 128):
     """
-    Tokenizes a single story string and creates input_ids, attention_mask, and labels.
-
+    Formats text as: [SCENE] {factual description} [STORY] {narrative} <|endoftext|>
+    
     Args:
-        tokenizer (GPT2Tokenizer): The configured tokenizer
-        story (str): The story text to tokenize.
-        max_length (int): The maximum sequence length for truncation and padding
-
-    Returns:
-        dict: A dictionary containing the tokenized tensors.
+        tokenizer: The configured GPT2 tokenizer
+        scene_text: The factual description (e.g., "Two people at a gate in daylight")
+        story_text: The creative story
+        max_length: Maximum sequence length
     """
-
-    story_with_eos = story + tokenizer.eos_token
+    
+    # Combine into the "Thinking Structure"
+    full_text = f"[SCENE] {scene_text.strip()} [STORY] {story_text.strip()}{tokenizer.eos_token}"
 
     encoded_output = tokenizer(
-        story_with_eos,
+        full_text,
         max_length=max_length,
         padding="max_length",
         truncation=True,
@@ -49,8 +47,13 @@ def tokenize_story(tokenizer, story: str, max_length: int = 128):
     input_ids = encoded_output["input_ids"].squeeze(0)
     attention_mask = encoded_output["attention_mask"].squeeze(0)
 
+    # Labels for Autoregressive training:
+    # We want the model to predict everything after the image tokens.
     labels = input_ids.clone()
+    labels[attention_mask == 0] = -100  # Ignore padding in loss calculation
 
-    labels[attention_mask == 0] = -100
-
-    return {"input_ids": input_ids, "attention_mask": attention_mask, "labels": labels}
+    return {
+        "input_ids": input_ids, 
+        "attention_mask": attention_mask, 
+        "labels": labels
+    }

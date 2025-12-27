@@ -19,7 +19,7 @@ def train_loop(
     device: Union[str, torch.device],
     train_dataloader,
     val_dataloader,
-    resnet,
+    processor,
     use_amp: bool,
     fixed_image_path: str = None,
 ):
@@ -120,7 +120,7 @@ def train_loop(
             model=model,
             optimizer=optimizer,
             dataloader=train_dataloader,
-            resnet=resnet,
+            processor=processor,
             device=device,
             epoch=epoch,
             scheduler=scheduler,
@@ -133,7 +133,7 @@ def train_loop(
             dataloader=val_dataloader,
             device=device,
             epoch=epoch,
-            resnet=resnet,
+            processor=processor,
             use_amp=use_amp,
         )
 
@@ -151,7 +151,7 @@ def train_loop(
             try:
                 logging.info(f"--- Generating Sample Story for Epoch {epoch} ---")
                 sample_story = generate_story_from_fixed_image(
-                    model, resnet, device, fixed_image_path, prompt="A story about"
+                    model, processor, device, fixed_image_path, prompt="A story about"
                 )
                 logging.info(f"Generated Story: {sample_story}")
             except Exception as e:

@@ -12,7 +12,7 @@ def train_one_epoch(
     device,
     epoch: int,
     scheduler,
-    resnet,
+    processor,
     use_amp: bool = False,
     scaler=None,
 ):
@@ -33,7 +33,7 @@ def train_one_epoch(
             labels = labels.to(device).long()
 
             with torch.no_grad():
-                img_feats = resnet(images)
+                img_feats = processor(images)
 
             with amp.autocast(device_type="cuda",enabled=use_amp):
 
@@ -91,7 +91,7 @@ def train_one_epoch(
 
 
 def validate_one_epoch(
-    model, dataloader, device, epoch: int, resnet, use_amp: bool = False
+    model, dataloader, device, epoch: int, processor, use_amp: bool = False
 ):
 
     model.to(device)
@@ -111,7 +111,7 @@ def validate_one_epoch(
                 attn_mask = attn_mask.to(device)
                 labels = labels.to(device).long()
 
-                img_feats = resnet(images)
+                img_feats = processor(images)
 
                 with amp.autocast(device_type="cuda",enabled=use_amp):
                     loss , logits = model(img_feats, input_ids, attn_mask, labels)

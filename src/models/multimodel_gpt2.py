@@ -1,12 +1,14 @@
 import torch
 import torch.nn as nn
-from transformers import GPT2LMHeadModel, AutoModelForCausalLM
+from transformers import AutoModelForCausalLM, GPT2Config
 
-# Try to import GPT2LMHeadModel, fallback to AutoModelForCausalLM if not available
-try:
-    from transformers import GPT2LMHeadModel
-except ImportError:
-    GPT2LMHeadModel = AutoModelForCausalLM
+# Create a proper GPT2LMHeadModel class for compatibility
+class GPT2LMHeadModel(AutoModelForCausalLM):
+    config_class = GPT2Config
+    
+    @classmethod
+    def from_pretrained(cls, model_name, **kwargs):
+        return AutoModelForCausalLM.from_pretrained(model_name, **kwargs)
 
 
 class MultimodelGPT2(nn.Module):
@@ -26,7 +28,7 @@ class MultimodelGPT2(nn.Module):
         self.prefix_len = 1 + self.num_img_tokens
 
         self.image_projection = nn.Sequential(
-            nn.Linear(2048, self.hidden_size * self.num_img_tokens),
+            nn.Linear(512, self.hidden_size * self.num_img_tokens),
             nn.LayerNorm(self.hidden_size * self.num_img_tokens),
         )
 
@@ -119,4 +121,4 @@ class MultimodelGPT2(nn.Module):
             pad_token_id=self.config.eos_token_id,
             **gen_kwargs,
         )
-        return output_ids[:, (self.prefix_len + prompt_len) :]
+        return output_ids

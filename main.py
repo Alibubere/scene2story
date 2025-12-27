@@ -13,7 +13,7 @@ from src.data_prep.save_story_dataset import save_clean_dataset
 from src.data_prep.dataset import StoryImageDataset
 from src.text.tokenizer_utils import get_gpt2_tokenizer
 from src.models.decoder import ImageConditionedTransformerDecoder
-from src.features.extract_image_features import get_pretrained_resnet50_encoder
+from src.features.extract_image_features import get_pretrained_clip_encoder
 from src.data_prep.dataloader import get_dataloader
 from src.models.training_utils import (
     get_optimizer,
@@ -112,7 +112,7 @@ def main():
     val_dataset = StoryImageDataset(val_data_path)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    resnet = get_pretrained_resnet50_encoder(device)
+    processor = get_pretrained_clip_encoder(device)
 
     model = MultimodelGPT2(
         gpt2_model_name=gpt2_model_name,
@@ -156,7 +156,7 @@ def main():
         device=device,
         train_dataloader=train_dataloader,
         val_dataloader=val_dataloader,
-        resnet=resnet,
+        processor=processor,
         use_amp=use_amp,
         fixed_image_path=fixed_image_path,
     )
