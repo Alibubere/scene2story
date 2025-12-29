@@ -15,8 +15,9 @@
 ![Python](https://img.shields.io/badge/Python-3.8+-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)
 ![Transformers](https://img.shields.io/badge/🤗_Transformers-Latest-FFD21E?style=for-the-badge)
-![ResNet](https://img.shields.io/badge/ResNet50-Computer_Vision-FF6B6B?style=for-the-badge)
+![CLIP](https://img.shields.io/badge/CLIP-Vision_Encoder-FF6B6B?style=for-the-badge)
 ![GPT-2](https://img.shields.io/badge/GPT--2-Language_Model-4ECDC4?style=for-the-badge)
+![Streamlit](https://img.shields.io/badge/Streamlit-Web_UI-FF4B4B?style=for-the-badge)
 
 ### 📊 Project Status
 
@@ -50,10 +51,11 @@
 <td width="50%">
 
 **🔍 What it does:**
-- Analyzes images using computer vision
+- Analyzes images using CLIP vision encoder
 - Extracts meaningful visual features
 - Generates creative narratives
-- Combines ResNet50 + GPT-2 architectures
+- Combines CLIP + GPT-2 architectures
+- Interactive web interface
 
 </td>
 <td width="50%">
@@ -73,14 +75,16 @@
 
 ## ✨ Features
 
-- 🖼️ **Image Feature Extraction** - ResNet50-based visual encoding
+- 🖼️ **Image Feature Extraction** - CLIP-based visual encoding
 - 📝 **Story Generation** - GPT-2 powered narrative creation
 - 🔄 **Custom Dataset Pipeline** - Flickr30k integration
 - 🧠 **Model Training** - Complete training pipeline with checkpointing
 - ⚙️ **YAML Configuration** - Easy parameter tuning
 - 📊 **Logging System** - Comprehensive tracking
-- 🎨 **Special Token Handling** - Custom [IMG] token support
+- 🎨 **Multimodal Architecture** - Custom image token integration
 - 💾 **Model Persistence** - Automatic checkpoint saving and loading
+- 🌐 **Web Interface** - Streamlit-based interactive UI
+- 🚀 **FastAPI Support** - Ready for API deployment
 
 ## 📦 Installation
 
@@ -98,6 +102,9 @@ cd scene2story
 
 # Install dependencies
 pip install -r requirements.txt
+
+# Run the web interface
+streamlit run app/ui.py
 ```
 
 ### Dataset Download
@@ -117,26 +124,41 @@ python main.py
 # Training will automatically resume from latest checkpoint if available
 ```
 
+### Web Interface Usage
+
+```bash
+# Launch the interactive web interface
+streamlit run app/ui.py
+```
+
 ### Quick Start Example
 
 ```python
 from src.data_prep.dataset import StoryImageDataset
-from src.models.story_generation import StoryGenerationModel
+from src.models.multimodel_gpt2 import MultimodelGPT2
+from src.features.clip_encoder import get_pretrained_clip_encoder
 
 # Load dataset
 dataset = StoryImageDataset("data/processed/stories_train.jsonl")
 
-# Get sample
-image, input_ids, attention_mask, labels = dataset[0]
+# Initialize model
+model = MultimodelGPT2(
+    gpt2_model_name="gpt2",
+    num_img_tokens=4,
+    num_unfreeze_layers=4
+)
 
-# Load trained model for inference
-model = StoryGenerationModel.from_pretrained("checkpoints/best.pth")
+# Load trained weights
+checkpoint = torch.load("checkpoints/best.pth")
+model.load_state_dict(checkpoint["model_state"])
 ```
 
 ## 📁 Project Structure
 
 ```
 scene2story/
+├── app/
+│   └── ui.py                    # Streamlit web interface
 ├── checkpoints/
 │   ├── best.pth                 # Best model checkpoint
 │   └── latest.pth               # Latest training checkpoint
@@ -157,10 +179,11 @@ scene2story/
 │   │   ├── story_generator.py   # Story creation logic
 │   │   └── save_story_dataset.py
 │   ├── features/
-│   │   └── extract_image_features.py  # ResNet50 feature extraction
+│   │   ├── clip_encoder.py      # CLIP vision encoder
+│   │   └── extract_image_features.py  # Feature extraction utilities
 │   ├── models/
-│   │   ├── decoder.py           # Story decoder model
-│   │   ├── story_generation.py  # Main generation model
+│   │   ├── multimodel_gpt2.py   # Main multimodal model
+│   │   ├── story_generation.py  # Generation utilities
 │   │   ├── train.py             # Training script
 │   │   ├── train_loop.py        # Training loop logic
 │   │   └── training_utils.py    # Training utilities
@@ -169,7 +192,8 @@ scene2story/
 ├── logs/
 │   └── Pipeline.log             # Training logs
 ├── requirements.txt             # Python dependencies
-└── main.py                      # Entry point
+├── LICENCE                      # MIT License
+└── main.py                      # Training entry point
 ```
 
 ## ⚙️ Configuration
@@ -182,22 +206,56 @@ paths:
   images_dir: "data/raw/flickr30k-images"
 
 data:
-  use_split: "train"
-  num_preview: 5
+  use_split: "train"   # 'train', 'val', 'test', or 'all'
+  num_preview: 3
 
 clean_paths:
   save_dir: "data/processed"
+
+model:
+  gpt2_type: "gpt2"           # 'gpt2' or 'gpt2-medium'
+  d_model: 768                # GPT-2 hidden size
+  num_img_tokens: 4           # Number of image tokens
+  num_unfreeze_layers: 4      # Trainable transformer layers
+  dropout: 0.1
+
+training:
+  num_epochs: 20
+  batch_size: 8
+  lr: 0.00005
+  weight_decay: 0.005
+  resume_from_checkpoint: True
+  use_amp: False
+  max_grad_norm: 1.0
+  early_stop_patience: 7
 ```
 
 ## 🛠️ Tech Stack
 
 - **Deep Learning**: PyTorch, torchvision
 - **NLP**: Hugging Face Transformers (GPT-2)
-- **Vision**: ResNet50 (pretrained)
+- **Vision**: CLIP (OpenAI)
 - **Data**: Pandas, PIL
 - **Config**: PyYAML
+- **Web Interface**: Streamlit
+- **API**: FastAPI, Uvicorn
 - **Training**: Mixed precision training, automatic checkpointing
 - **Logging**: Comprehensive training metrics
+
+## 🌐 Web Interface
+
+The project includes a user-friendly Streamlit web interface:
+
+- **Image Upload**: Drag and drop or browse for images
+- **Custom Prompts**: Add optional story prompts
+- **Real-time Generation**: Generate stories with adjustable parameters
+- **Interactive Display**: View generated stories alongside input images
+
+### Launch Web Interface
+
+```bash
+streamlit run app/ui.py
+```
 
 ## 🎯 Model Training
 
