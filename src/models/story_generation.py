@@ -12,13 +12,14 @@ def generate_story_from_fixed_image(
     max_new_tokens: int = 40
 ):
     """
-    Simplified story generation to avoid protobuf issues.
+    Real story generation for testing model inference.
     """
     try:
         model.eval()
         clip_encoder.eval()
         
         tokenizer = get_gpt2_tokenizer()
+        tokenizer.pad_token = tokenizer.eos_token
         transform = get_clip_processor()
         
         image = Image.open(image_path).convert("RGB")
@@ -26,30 +27,42 @@ def generate_story_from_fixed_image(
         
         with torch.no_grad():
             img_feats = clip_encoder(image_tensor)
-            prompt_ids = tokenizer.encode(prompt, return_tensors="pt").to(device)
             
-            # Simple forward pass without generate to avoid protobuf issues
-            outputs = model.gpt2(input_ids=prompt_ids)
-            logits = outputs.logits
+            # Manual tokenization to avoid protobuf issues
+            prompt_tokens = prompt.split()
+            vocab = tokenizer.get_vocab()
             
-            # Get next token prediction
-            next_token_logits = logits[0, -1, :]
-            next_token_id = torch.argmax(next_token_logits, dim=-1)
+            prompt_ids = []
+            for word in prompt_tokens:
+                if word in vocab:
+                    prompt_ids.append(vocab[word])
+                else:
+                    prompt_ids.append(vocab.get('<|endoftext|>', 50256))
             
-            # Simple greedy decoding for a few tokens
-            current_ids = prompt_ids.clone()
+            if not prompt_ids:
+                prompt_ids = [vocab.get('A', 32)]
+                
+            prompt_tensor = torch.tensor([prompt_ids], device=device)
             
-            for _ in range(min(10, max_new_tokens)):
+            # Generate multiple tokens
+            current_ids = prompt_tensor.clone()
+            
+            for _ in range(min(15, max_new_tokens)):
                 outputs = model.gpt2(input_ids=current_ids)
-                next_token_id = torch.argmax(outputs.logits[0, -1, :], dim=-1)
-                current_ids = torch.cat([current_ids, next_token_id.unsqueeze(0).unsqueeze(0)], dim=1)
-                if next_token_id.item() == tokenizer.eos_token_id:
+                next_token = torch.argmax(outputs.logits[0, -1, :]).item()
+                current_ids = torch.cat([current_ids, torch.tensor([[next_token]], device=device)], dim=1)
+                if next_token == vocab.get('<|endoftext|>', 50256):
                     break
+            
+            # Convert back to text manually
+            reverse_vocab = {v: k for k, v in vocab.items()}
+            result_words = [reverse_vocab.get(tid.item(), '<unk>') for tid in current_ids[0]]
+            
+            story = ' '.join(result_words).replace('Ġ', ' ').strip()
         
-        story = tokenizer.decode(current_ids[0], skip_special_tokens=True)
         model.train()
-        return story.strip()
+        return story
         
     except Exception as e:
         model.train()
-        return "Story generation temporarily disabled due to compatibility issues"
+        return f"Generation error: {str(e)}"

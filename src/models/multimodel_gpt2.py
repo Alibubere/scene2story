@@ -24,6 +24,7 @@ class MultimodelGPT2(nn.Module):
         self.hidden_size = self.config.hidden_size
         self.num_img_tokens = num_img_tokens
         self.prefix_len = 1 + self.num_img_tokens
+        self.dropout_rate = dropout_rate
 
         self.image_projection = nn.Sequential(
             nn.Linear(512, self.hidden_size * self.num_img_tokens),
@@ -33,6 +34,11 @@ class MultimodelGPT2(nn.Module):
         self.image_dropout = nn.Dropout(dropout_rate)
         self.learned_bos_embedding = nn.Parameter(torch.randn(1, 1, self.hidden_size))
         self._freeze_layers(num_unfreeze_layers)
+
+    def set_dropout_rate(self, dropout_rate):
+        """Dynamically adjust dropout rate during training"""
+        self.dropout_rate = dropout_rate
+        self.image_dropout.p = dropout_rate
 
     def _freeze_layers(self, num_unfreeze_layers):
         for param in self.gpt2.parameters():

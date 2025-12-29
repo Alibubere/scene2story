@@ -1349,3 +1349,156 @@ Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
 2025-12-27 22:22:39,308 - INFO - Checkpoint saved to checkpoints/best.pth (resumption epoch: 2)
 2025-12-27 22:22:40,446 - INFO - Checkpoint saved to checkpoints/latest.pth (resumption epoch: 2)
 2025-12-27 22:22:55,758 - INFO - Epoch [3] Batch [0/3625] loss: 1.2050 
+2025-12-28 14:57:27,362 - INFO - Logging initialize successfully
+2025-12-28 14:57:27,498 - INFO - Loaded 29000 rows for split='train'.
+2025-12-28 14:57:27,621 - INFO - Loaded 1014 rows for split='val'.
+2025-12-28 14:57:29,003 - INFO - Built 29000 samples from annotaions
+2025-12-28 14:57:29,005 - INFO - Total train samples: 29000
+2025-12-28 14:57:29,039 - INFO - Built 1014 samples from annotaions
+2025-12-28 14:57:29,039 - INFO - Total val samples: 1014
+2025-12-28 14:57:29,061 - INFO - Built 29000 samples for story 
+2025-12-28 14:57:29,063 - INFO - Built 1014 samples for story 
+2025-12-28 14:57:29,197 - INFO - Cleaned data saved to data/processed\stories_train.jsonl
+2025-12-28 14:57:29,202 - INFO - Cleaned data saved to data/processed\stories_val.jsonl
+2025-12-28 14:57:34,283 - INFO - Model initialized. Trainable parameters: 68534016
+2025-12-28 14:57:35,708 - INFO - Checkpoint loaded from checkpoints/latest.pth. Resuming at epoch 2. (Scheduler restored: True, Scaler restored: True)
+2025-12-28 14:57:35,708 - INFO - Checkpoint loaded from checkpoints/latest.pth (LATEST (Better Performance)). Resuming training from epoch 3, best loss tracked: 1.2477
+2025-12-28 14:57:51,797 - INFO - Epoch [3] Batch [0/3625] loss: 1.0973 
+2025-12-28 15:01:12,886 - INFO - Epoch [3] Batch [1200/3625] loss: 1.2339 
+2025-12-28 15:04:38,397 - INFO - Epoch [3] Batch [2400/3625] loss: 1.0389 
+2025-12-28 15:08:02,694 - INFO - Epoch [3] Batch [3600/3625] loss: 1.3640 
+2025-12-28 15:08:24,150 - INFO - Epoch [3] Batch [0/127] loss: 1.1784 
+2025-12-28 15:08:27,939 - INFO - Epoch [3] Batch [60/127] loss: 1.2320 
+2025-12-28 15:08:31,716 - INFO - Epoch [3] Batch [120/127] loss: 1.1899 
+2025-12-28 15:08:32,823 - INFO - Epoch: [3/20]Train loss: 1.1603 | Val loss: 1.2415
+2025-12-28 15:08:32,827 - INFO - --- Generating Sample Story for Epoch 3 ---
+2025-12-28 15:08:34,328 - INFO - Generated Story: Story generation temporarily disabled due to compatibility issues
+2025-12-28 15:08:34,328 - INFO - Validation loss improved from 1.2477 to 1.2415. Saving Best model.
+2025-12-28 15:08:35,494 - INFO - Checkpoint saved to checkpoints/best.pth (resumption epoch: 3)
+2025-12-28 15:08:36,577 - INFO - Checkpoint saved to checkpoints/latest.pth (resumption epoch: 3)
+2025-12-28 15:08:52,671 - INFO - Epoch [4] Batch [0/3625] loss: 1.0136 
+2025-12-28 15:12:16,687 - INFO - Epoch [4] Batch [1200/3625] loss: 1.1006 
+2025-12-28 15:15:40,215 - INFO - Epoch [4] Batch [2400/3625] loss: 1.1207 
+2025-12-28 15:19:02,586 - INFO - Epoch [4] Batch [3600/3625] loss: 0.9733 
+2025-12-28 15:19:23,559 - INFO - Epoch [4] Batch [0/127] loss: 1.1662 
+2025-12-28 15:19:27,292 - INFO - Epoch [4] Batch [60/127] loss: 1.2357 
+2025-12-28 15:19:31,030 - INFO - Epoch [4] Batch [120/127] loss: 1.2094 
+2025-12-28 15:19:32,087 - INFO - Epoch: [4/20]Train loss: 1.0854 | Val loss: 1.2427
+2025-12-28 15:19:32,087 - INFO - --- Generating Sample Story for Epoch 4 ---
+2025-12-28 15:19:32,724 - INFO - Generated Story: Story generation temporarily disabled due to compatibility issues
+2025-12-28 15:19:32,724 - INFO - Validation loss did not improve. Current best loss: 1.2415 (Patience: 1/5)
+2025-12-28 15:19:33,818 - INFO - Checkpoint saved to checkpoints/latest.pth (resumption epoch: 4)
+2025-12-28 15:19:49,289 - INFO - Epoch [5] Batch [0/3625] loss: 0.9598 
+2025-12-28 15:23:11,300 - INFO - Epoch [5] Batch [1200/3625] loss: 1.1109 
+2025-12-28 15:26:34,374 - INFO - Epoch [5] Batch [2400/3625] loss: 1.1721 
+2025-12-28 15:29:58,746 - INFO - Epoch [5] Batch [3600/3625] loss: 1.1147 
+2025-12-28 15:30:18,795 - INFO - Epoch [5] Batch [0/127] loss: 1.1933 
+2025-12-28 15:30:22,519 - INFO - Epoch [5] Batch [60/127] loss: 1.2495 
+2025-12-28 15:30:26,254 - INFO - Epoch [5] Batch [120/127] loss: 1.2355 
+2025-12-28 15:30:27,297 - INFO - Epoch: [5/20]Train loss: 1.0171 | Val loss: 1.2693
+2025-12-28 15:30:27,298 - INFO - --- Generating Sample Story for Epoch 5 ---
+2025-12-28 15:30:27,838 - INFO - Generated Story: Story generation temporarily disabled due to compatibility issues
+2025-12-28 15:30:27,839 - INFO - Validation loss did not improve. Current best loss: 1.2415 (Patience: 2/5)
+2025-12-28 15:30:28,942 - INFO - Checkpoint saved to checkpoints/latest.pth (resumption epoch: 5)
+2025-12-28 15:34:42,928 - INFO - Logging initialize successfully
+2025-12-28 15:34:43,058 - INFO - Loaded 29000 rows for split='train'.
+2025-12-28 15:34:43,195 - INFO - Loaded 1014 rows for split='val'.
+2025-12-28 15:34:44,608 - INFO - Built 29000 samples from annotaions
+2025-12-28 15:34:44,609 - INFO - Total train samples: 29000
+2025-12-28 15:34:44,645 - INFO - Built 1014 samples from annotaions
+2025-12-28 15:34:44,645 - INFO - Total val samples: 1014
+2025-12-28 15:34:44,667 - INFO - Built 29000 samples for story 
+2025-12-28 15:34:44,667 - INFO - Built 1014 samples for story 
+2025-12-28 15:34:44,806 - INFO - Cleaned data saved to data/processed\stories_train.jsonl
+2025-12-28 15:34:44,811 - INFO - Cleaned data saved to data/processed\stories_val.jsonl
+2025-12-28 15:34:50,071 - INFO - Model initialized. Trainable parameters: 68534016
+2025-12-28 15:34:51,636 - INFO - Checkpoint loaded from checkpoints/latest.pth. Resuming at epoch 5. (Scheduler restored: True, Scaler restored: True)
+2025-12-28 15:34:51,636 - INFO - Checkpoint loaded from checkpoints/latest.pth (LATEST (Better Performance)). Resuming training from epoch 6, best loss tracked: 1.2415
+2025-12-28 15:35:08,393 - INFO - Epoch [6] Batch [0/3625] loss: 1.0392 
+2025-12-28 15:38:41,241 - INFO - Epoch [6] Batch [1200/3625] loss: 0.8567 
+2025-12-28 15:42:04,990 - INFO - Epoch [6] Batch [2400/3625] loss: 0.8136 
+2025-12-28 15:45:27,060 - INFO - Epoch [6] Batch [3600/3625] loss: 0.9902 
+2025-12-28 15:45:47,520 - INFO - Epoch [6] Batch [0/127] loss: 1.2361 
+2025-12-28 15:45:51,225 - INFO - Epoch [6] Batch [60/127] loss: 1.3126 
+2025-12-28 15:45:54,944 - INFO - Epoch [6] Batch [120/127] loss: 1.2844 
+2025-12-28 15:45:56,008 - INFO - Epoch: [6/20]Train loss: 0.9534 | Val loss: 1.3020
+2025-12-28 15:45:56,008 - INFO - --- Generating Sample Story for Epoch 6 ---
+2025-12-28 15:45:56,762 - INFO - Generated Story: A story about  a  man  in  a  black  shirt  and  jeans  standing  in  front  of  a  store .
+2025-12-28 15:45:56,762 - INFO - Validation loss did not improve. Current best loss: 1.2415 (Patience: 1/5)
+2025-12-28 15:45:57,837 - INFO - Checkpoint saved to checkpoints/latest.pth (resumption epoch: 6)
+2025-12-28 15:46:13,038 - INFO - Epoch [7] Batch [0/3625] loss: 0.8231 
+2025-12-28 15:49:35,707 - INFO - Epoch [7] Batch [1200/3625] loss: 0.9512 
+2025-12-28 15:52:57,702 - INFO - Epoch [7] Batch [2400/3625] loss: 0.9450 
+2025-12-28 15:56:19,725 - INFO - Epoch [7] Batch [3600/3625] loss: 0.9701 
+2025-12-28 15:56:39,330 - INFO - Epoch [7] Batch [0/127] loss: 1.2074 
+2025-12-28 15:56:43,042 - INFO - Epoch [7] Batch [60/127] loss: 1.3205 
+2025-12-28 15:56:46,791 - INFO - Epoch [7] Batch [120/127] loss: 1.3489 
+2025-12-28 15:56:47,848 - INFO - Epoch: [7/20]Train loss: 0.8908 | Val loss: 1.3237
+2025-12-28 15:56:47,848 - INFO - --- Generating Sample Story for Epoch 7 ---
+2025-12-28 15:56:48,540 - INFO - Generated Story: A story about  a  man  in  a  black  shirt  and  blue  jeans  standing  in  front  of  a  yellow
+2025-12-28 15:56:48,540 - INFO - Validation loss did not improve. Current best loss: 1.2415 (Patience: 2/5)
+2025-12-28 15:56:49,617 - INFO - Checkpoint saved to checkpoints/latest.pth (resumption epoch: 7)
+2025-12-28 15:57:05,053 - INFO - Epoch [8] Batch [0/3625] loss: 0.8166 
+2025-12-28 16:00:28,440 - INFO - Epoch [8] Batch [1200/3625] loss: 0.7064 
+2025-12-28 16:03:51,129 - INFO - Epoch [8] Batch [2400/3625] loss: 0.7755 
+2025-12-28 16:07:14,314 - INFO - Epoch [8] Batch [3600/3625] loss: 0.7300 
+2025-12-28 16:07:35,339 - INFO - Epoch [8] Batch [0/127] loss: 1.2714 
+2025-12-28 16:07:39,059 - INFO - Epoch [8] Batch [60/127] loss: 1.3769 
+2025-12-28 16:07:42,805 - INFO - Epoch [8] Batch [120/127] loss: 1.3917 
+2025-12-28 16:07:43,839 - INFO - Epoch: [8/20]Train loss: 0.7947 | Val loss: 1.3812
+2025-12-28 16:07:43,839 - INFO - --- Generating Sample Story for Epoch 8 ---
+2025-12-28 16:07:44,388 - INFO - Generated Story: A story about  a  woman  in  a  black  dress  and  holding  a  white  bag . [STORY] A story
+2025-12-28 16:07:44,388 - INFO - Validation loss did not improve. Current best loss: 1.2415 (Patience: 3/5)
+2025-12-28 16:07:44,388 - INFO - Manually reducing LR from 5.00e-05 to 5.00e-06
+2025-12-28 16:07:45,495 - INFO - Checkpoint saved to checkpoints/latest.pth (resumption epoch: 8)
+2025-12-28 16:08:00,670 - INFO - Epoch [9] Batch [0/3625] loss: 0.7277 
+2025-12-28 16:11:22,337 - INFO - Epoch [9] Batch [1200/3625] loss: 0.7000 
+2025-12-28 16:14:44,390 - INFO - Epoch [9] Batch [2400/3625] loss: 0.8050 
+2025-12-28 16:18:06,935 - INFO - Epoch [9] Batch [3600/3625] loss: 0.8029 
+2025-12-28 16:18:26,552 - INFO - Epoch [9] Batch [0/127] loss: 1.3001 
+2025-12-28 16:18:30,302 - INFO - Epoch [9] Batch [60/127] loss: 1.3992 
+2025-12-28 16:18:34,053 - INFO - Epoch [9] Batch [120/127] loss: 1.4460 
+2025-12-28 16:18:35,097 - INFO - Epoch: [9/20]Train loss: 0.7265 | Val loss: 1.4208
+2025-12-28 16:18:35,097 - INFO - --- Generating Sample Story for Epoch 9 ---
+2025-12-28 16:18:35,655 - INFO - Generated Story: A story about  a  middle - aged  white  man  with  a  shaved  head ,  wearing  a  black  t
+2025-12-28 16:18:35,655 - INFO - Validation loss did not improve. Current best loss: 1.2415 (Patience: 4/5)
+2025-12-28 16:18:36,791 - INFO - Checkpoint saved to checkpoints/latest.pth (resumption epoch: 9)
+2025-12-28 16:18:51,885 - INFO - Epoch [10] Batch [0/3625] loss: 0.6913 
+2025-12-28 16:22:14,746 - INFO - Epoch [10] Batch [1200/3625] loss: 0.6918 
+2025-12-28 16:25:36,838 - INFO - Epoch [10] Batch [2400/3625] loss: 0.7000 
+2025-12-28 16:28:59,539 - INFO - Epoch [10] Batch [3600/3625] loss: 0.8172 
+2025-12-28 16:29:19,366 - INFO - Epoch [10] Batch [0/127] loss: 1.2986 
+2025-12-28 16:29:23,104 - INFO - Epoch [10] Batch [60/127] loss: 1.4000 
+2025-12-28 16:29:26,863 - INFO - Epoch [10] Batch [120/127] loss: 1.4502 
+2025-12-28 16:29:27,929 - INFO - Epoch: [10/20]Train loss: 0.7170 | Val loss: 1.4255
+2025-12-28 16:29:27,929 - INFO - --- Generating Sample Story for Epoch 10 ---
+2025-12-28 16:29:28,459 - INFO - Generated Story: A story about  a  middle - aged  white  man  with  a  shaved  head ,  wearing  a  black  t
+2025-12-28 16:29:28,459 - INFO - Validation loss did not improve. Current best loss: 1.2415 (Patience: 5/5)
+2025-12-28 16:29:28,459 - INFO - Early stopping triggered after 5 epochs without improvement
+2025-12-28 16:33:51,750 - INFO - Logging initialize successfully
+2025-12-28 16:33:51,875 - INFO - Loaded 29000 rows for split='train'.
+2025-12-28 16:33:51,994 - INFO - Loaded 1014 rows for split='val'.
+2025-12-28 16:33:53,383 - INFO - Built 29000 samples from annotaions
+2025-12-28 16:33:53,385 - INFO - Total train samples: 29000
+2025-12-28 16:33:53,420 - INFO - Built 1014 samples from annotaions
+2025-12-28 16:33:53,420 - INFO - Total val samples: 1014
+2025-12-28 16:33:53,443 - INFO - Built 29000 samples for story 
+2025-12-28 16:33:53,443 - INFO - Built 1014 samples for story 
+2025-12-28 16:33:53,577 - INFO - Cleaned data saved to data/processed\stories_train.jsonl
+2025-12-28 16:33:53,583 - INFO - Cleaned data saved to data/processed\stories_val.jsonl
+2025-12-28 16:33:58,762 - INFO - Model initialized. Trainable parameters: 68534016
+2025-12-28 16:34:00,440 - INFO - Checkpoint loaded from checkpoints/latest.pth. Resuming at epoch 9. (Scheduler restored: True, Scaler restored: True)
+2025-12-28 16:34:00,440 - INFO - Checkpoint loaded from checkpoints/latest.pth (LATEST (Better Performance)). Resuming training from epoch 10, best loss tracked: 1.2415
+2025-12-28 16:34:16,193 - INFO - Epoch [10] Batch [0/3625] loss: 0.7053 
+2025-12-28 16:37:37,483 - INFO - Epoch [10] Batch [1200/3625] loss: 0.7091 
+2025-12-28 16:41:05,300 - INFO - Epoch [10] Batch [2400/3625] loss: 0.8288 
+2025-12-28 16:44:37,866 - INFO - Epoch [10] Batch [3600/3625] loss: 0.5913 
+2025-12-28 16:45:06,493 - INFO - Epoch [10] Batch [0/127] loss: 1.3034 
+2025-12-28 16:45:10,638 - INFO - Epoch [10] Batch [60/127] loss: 1.4027 
+2025-12-28 16:45:14,737 - INFO - Epoch [10] Batch [120/127] loss: 1.4572 
+2025-12-28 16:45:15,957 - INFO - Epoch: [10/20]Train loss: 0.7190 | Val loss: 1.4270
+2025-12-28 16:45:15,958 - INFO - --- Generating Sample Story for Epoch 10 ---
+2025-12-28 16:45:16,697 - INFO - Generated Story: A story about  a  middle - aged  white  man  with  a  shaved  head ,  wearing  a  black  t
+2025-12-28 16:45:16,697 - INFO - Validation loss did not improve. Current best loss: 1.2415 (Patience: 1/7)
+2025-12-28 16:45:17,981 - INFO - Checkpoint saved to checkpoints/latest.pth (resumption epoch: 10)
+2025-12-28 16:45:40,014 - INFO - Epoch [11] Batch [0/3625] loss: 0.7019 

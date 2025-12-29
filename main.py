@@ -164,6 +164,7 @@ def main():
         clip_encoder=clip_encoder,
         use_amp=use_amp,
         fixed_image_path=fixed_image_path,
+        max_grad_norm=1.0,
     )
 
 

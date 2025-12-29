@@ -22,13 +22,15 @@ def train_loop(
     clip_encoder,
     use_amp: bool,
     fixed_image_path: str = None,
+    max_grad_norm: float = 1.0,
 ):
 
     start_epoch = 1
     best_val_loss = 10.0
     checkpoint_to_load = None
     patience_counter = 0
-    early_stop_patience = 5
+    early_stop_patience = 7  # Increased patience
+    min_lr = 1e-7  # Minimum learning rate threshold
 
     if resume:
         latest_exists = os.path.exists(latest_path)
@@ -116,6 +118,11 @@ def train_loop(
 
     for epoch in range(start_epoch, num_epochs + 1):
 
+        # Adjust dropout based on overfitting
+        if hasattr(model, 'set_dropout_rate'):
+            dropout_rate = min(0.3, 0.1 + (patience_counter * 0.05))
+            model.set_dropout_rate(dropout_rate)
+        
         train_avg_loss = train_one_epoch(
             model=model,
             optimizer=optimizer,
@@ -126,6 +133,7 @@ def train_loop(
             scheduler=scheduler,
             scaler=scaler,
             use_amp=use_amp,
+            max_grad_norm=max_grad_norm,
         )
 
         val_avg_loss = validate_one_epoch(
@@ -178,15 +186,26 @@ def train_loop(
                 f"Validation loss did not improve. Current best loss: {best_val_loss:.4f} (Patience: {patience_counter}/{early_stop_patience})"
             )
 
-            # Manual LR reduction if scheduler hasn't reduced it enough
-            if patience_counter == 3:
-                current_lr = optimizer.param_groups[0]["lr"]
-                new_lr = current_lr * 0.1
+            # Progressive LR reduction and weight decay adjustment
+            current_lr = optimizer.param_groups[0]["lr"]
+            if patience_counter == 3 and current_lr > min_lr * 10:
+                new_lr = max(current_lr * 0.5, min_lr)
+                # Increase weight decay to combat overfitting
+                current_wd = optimizer.param_groups[0].get("weight_decay", 0)
+                new_wd = min(current_wd * 1.5, 0.01)
+                
                 for param_group in optimizer.param_groups:
                     param_group["lr"] = new_lr
+                    param_group["weight_decay"] = new_wd
+                
                 logging.info(
-                    f"Manually reducing LR from {current_lr:.2e} to {new_lr:.2e}"
+                    f"Reducing LR: {current_lr:.2e} → {new_lr:.2e}, Weight decay: {current_wd:.2e} → {new_wd:.2e}"
                 )
+            elif patience_counter == 5 and current_lr > min_lr:
+                new_lr = max(current_lr * 0.2, min_lr)
+                for param_group in optimizer.param_groups:
+                    param_group["lr"] = new_lr
+                logging.info(f"Final LR reduction: {current_lr:.2e} → {new_lr:.2e}")
 
             # Early stopping
             if patience_counter >= early_stop_patience:

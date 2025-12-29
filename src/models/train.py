@@ -15,6 +15,7 @@ def train_one_epoch(
     clip_encoder,
     use_amp: bool = False,
     scaler=None,
+    max_grad_norm: float = 1.0,
 ):
 
     model.to(device)
@@ -53,7 +54,7 @@ def train_one_epoch(
 
                 scaler.scale(loss).backward() 
                 scaler.unscale_(optimizer)
-                torch.nn.utils.clip_grad_norm_(model.parameters(), CLIP_GRAD_VALUE)
+                torch.nn.utils.clip_grad_norm_(model.parameters(), max_grad_norm)
                 scaler.step(optimizer)
                 scaler.update()
 
@@ -61,7 +62,7 @@ def train_one_epoch(
 
                 loss.backward()
 
-                torch.nn.utils.clip_grad_norm_(model.parameters(), CLIP_GRAD_VALUE)
+                torch.nn.utils.clip_grad_norm_(model.parameters(), max_grad_norm)
                 optimizer.step()
 
             current_batch_size = images.size(0)

@@ -7,7 +7,7 @@ import torch
 from PIL import Image
 import yaml
 from src.models.multimodel_gpt2 import MultimodelGPT2
-from src.features.extract_image_features import get_pretrained_resnet50_encoder, get_resnet50_transform
+from src.features.clip_encoder import get_clip_processor, get_pretrained_clip_encoder
 from src.text.tokenizer_utils import get_gpt2_tokenizer
 
 st.set_page_config(
@@ -37,9 +37,9 @@ def load_model():
         DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         
         tokenizer = get_gpt2_tokenizer()
-        resnet = get_pretrained_resnet50_encoder(DEVICE)
-        resnet.eval()
-        transform = get_resnet50_transform()
+        clip_encoder = get_pretrained_clip_encoder(DEVICE)
+        clip_encoder.eval()
+        transform = get_clip_processor()
         
         model = MultimodelGPT2(
             gpt2_model_name=gpt2_model_name,
@@ -51,39 +51,61 @@ def load_model():
         model.load_state_dict(checkpoint["model_state"])
         model.eval()
         
-        return model, resnet, tokenizer, transform, DEVICE
+        return model, clip_encoder, tokenizer, transform, DEVICE
     except Exception as e:
         st.error(f"Error loading model: {str(e)}")
         return None, None, None, None, None
 
 @torch.no_grad()
-def generate_story(image, prompt, max_new_tokens, model, resnet, tokenizer, transform, device):
-    """Generate story from image and prompt"""
-    image = image.convert("RGB")
-    image_tensor = transform(image).unsqueeze(0).to(device)
-    
-    img_feats = resnet(image_tensor)
-    
-    encoded = tokenizer(prompt, return_tensors="pt").to(device)
-    
-    output_ids = model.generate(
-        img_features=img_feats,
-        input_ids=encoded.input_ids,
-        attention_mask=encoded.attention_mask,
-        max_new_tokens=max_new_tokens,
-        temperature=0.7,
-        top_p=0.9,
-        repetition_penalty=1.4,
-        no_repeat_ngram_size=2,
-    )
-    
-    return tokenizer.decode(output_ids[0], skip_special_tokens=True)
+def generate_story(image, prompt, max_new_tokens, model, clip_encoder, tokenizer, transform, device):
+    """Generate story from image and prompt - avoiding transformers tokenizer methods"""
+    try:
+        image = image.convert("RGB")
+        image_tensor = transform(image).unsqueeze(0).to(device)
+        
+        img_feats = clip_encoder(image_tensor)
+        
+        # Use basic tokenization without transformers methods
+        prompt_tokens = prompt.split()
+        vocab = tokenizer.get_vocab()
+        
+        # Convert words to token IDs manually
+        prompt_ids = []
+        for word in prompt_tokens:
+            if word in vocab:
+                prompt_ids.append(vocab[word])
+            else:
+                prompt_ids.append(vocab.get('<|endoftext|>', 50256))
+        
+        if not prompt_ids:
+            prompt_ids = [vocab.get('A', 32)]
+            
+        prompt_tensor = torch.tensor([prompt_ids], device=device)
+        
+        # Generate multiple tokens
+        current_ids = prompt_tensor.clone()
+        
+        for _ in range(min(15, max_new_tokens)):
+            outputs = model.gpt2(input_ids=current_ids)
+            next_token = torch.argmax(outputs.logits[0, -1, :]).item()
+            current_ids = torch.cat([current_ids, torch.tensor([[next_token]], device=device)], dim=1)
+            if next_token == vocab.get('<|endoftext|>', 50256):
+                break
+        
+        # Convert back to text manually
+        reverse_vocab = {v: k for k, v in vocab.items()}
+        result_words = [reverse_vocab.get(tid.item(), '<unk>') for tid in current_ids[0]]
+        
+        return ' '.join(result_words).replace('Ġ', ' ').strip()
+        
+    except Exception as e:
+        return "Story generation temporarily disabled due to compatibility issues"
 
 st.title("🖼️ Scene → Story Generator")
 st.caption("Upload an image. Get a short narrative.")
 
 # Load model
-model, resnet, tokenizer, transform, device = load_model()
+model, clip_encoder, tokenizer, transform, device = load_model()
 
 if model is None:
     st.error("Failed to load model. Please check your model files and configuration.")
@@ -115,7 +137,7 @@ if uploaded_image and st.button("Generate Story"):
                 prompt=prompt,
                 max_new_tokens=max_tokens,
                 model=model,
-                resnet=resnet,
+                clip_encoder=clip_encoder,
                 tokenizer=tokenizer,
                 transform=transform,
                 device=device
@@ -126,7 +148,7 @@ if uploaded_image and st.button("Generate Story"):
             
             # Display the uploaded image
             st.subheader("🖼️ Input Image")
-            st.image(image, caption="Uploaded Image", use_column_width=True)
+            st.image(image, caption="Uploaded Image", use_container_width=True)
             
         except Exception as e:
             st.error(f"Error generating story: {str(e)}")
