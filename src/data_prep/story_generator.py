@@ -2,11 +2,10 @@ from typing import List, Dict, Any
 import random
 import logging
 
-NEUTRAL_FOLLOWUPS = [
-    "The image shows a simple moment.",
-    "The scene captures an everyday situation.",
-    "This appears to be an ordinary scene.",
-    "The image presents a clear visual moment."
+FOLLOWUPS = [
+    "The scene feels calm and ordinary.",
+    "Nothing dramatic is happening, just a quiet moment.",
+    "It appears to be a simple moment captured in time.",
 ]
 
 
@@ -28,7 +27,7 @@ def caption_to_story(caption: str) -> str:
 
     caption = caption[0].upper() + caption[1:]
     
-    return caption + "."
+    return f"{caption}. {random.choice(FOLLOWUPS)}"
 
 def build_story_dataset(samples: List[Dict]) -> List[Dict]:
     """

@@ -19,7 +19,7 @@ def get_tokenizer():
 
 
 class StoryImageDataset(Dataset):
-    def __init__(self, data_path: str, image_transform, max_length: int = 128, diagnostic_mode: bool = False):
+    def __init__(self, data_path: str, image_transform, max_length: int = 128, diagnostic_mode: bool = True):
         """
         Args:
             data_path (str): Path to the .jsonl file.

@@ -1502,3 +1502,93 @@ Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
 2025-12-28 16:45:16,697 - INFO - Validation loss did not improve. Current best loss: 1.2415 (Patience: 1/7)
 2025-12-28 16:45:17,981 - INFO - Checkpoint saved to checkpoints/latest.pth (resumption epoch: 10)
 2025-12-28 16:45:40,014 - INFO - Epoch [11] Batch [0/3625] loss: 0.7019 
+2025-12-29 14:59:59,469 - INFO - Logging initialize successfully
+2025-12-29 14:59:59,612 - INFO - Loaded 29000 rows for split='train'.
+2025-12-29 14:59:59,742 - INFO - Loaded 1014 rows for split='val'.
+2025-12-29 15:00:01,156 - INFO - Built 29000 samples from annotaions
+2025-12-29 15:00:01,158 - INFO - Total train samples: 29000
+2025-12-29 15:00:01,196 - INFO - Built 1014 samples from annotaions
+2025-12-29 15:00:01,196 - INFO - Total val samples: 1014
+2025-12-29 15:00:01,220 - INFO - Built 29000 samples for story 
+2025-12-29 15:00:01,221 - INFO - Built 1014 samples for story 
+2025-12-29 15:00:01,358 - INFO - Cleaned data saved to data/processed\stories_train.jsonl
+2025-12-29 15:00:01,364 - INFO - Cleaned data saved to data/processed\stories_val.jsonl
+2025-12-29 15:00:06,012 - INFO - Model initialized. Trainable parameters: 68534016
+2025-12-29 15:00:06,012 - INFO - Resume enabled but no valid checkpoint found. Starting from scratch.
+2025-12-29 15:00:22,102 - INFO - Epoch [1] Batch [0/3625] loss: 74.4219 
+2025-12-29 15:03:40,346 - INFO - Epoch [1] Batch [1200/3625] loss: 2.9005 
+2025-12-29 15:07:01,992 - INFO - Epoch [1] Batch [2400/3625] loss: 2.4180 
+2025-12-29 15:10:22,813 - INFO - Epoch [1] Batch [3600/3625] loss: 2.0337 
+2025-12-29 15:10:43,611 - INFO - Epoch [1] Batch [0/127] loss: 2.3066 
+2025-12-29 15:10:47,368 - INFO - Epoch [1] Batch [60/127] loss: 2.4892 
+2025-12-29 15:10:51,124 - INFO - Epoch [1] Batch [120/127] loss: 2.4230 
+2025-12-29 15:10:52,236 - INFO - Epoch: [1/20]Train loss: 3.0216 | Val loss: 2.4650
+2025-12-29 15:10:52,236 - INFO - --- Generating Sample Story for Epoch 1 ---
+2025-12-29 15:10:52,988 - INFO - Generated Story: A story about  a  woman  in  a  black  shirt  and  black  shorts ,  holding  a  white  bag .
+2025-12-29 15:10:52,988 - INFO - Validation loss improved from 10.0000 to 2.4650. Saving Best model.
+2025-12-29 15:10:53,975 - INFO - Checkpoint saved to checkpoints/best.pth (resumption epoch: 1)
+2025-12-29 15:10:54,986 - INFO - Checkpoint saved to checkpoints/latest.pth (resumption epoch: 1)
+2025-12-29 15:11:10,327 - INFO - Epoch [2] Batch [0/3625] loss: 2.2368 
+2025-12-29 15:14:29,766 - INFO - Epoch [2] Batch [1200/3625] loss: 2.7071 
+2025-12-29 15:17:49,422 - INFO - Epoch [2] Batch [2400/3625] loss: 2.5018 
+2025-12-29 15:21:10,047 - INFO - Epoch [2] Batch [3600/3625] loss: 2.3097 
+2025-12-29 15:21:29,816 - INFO - Epoch [2] Batch [0/127] loss: 2.2191 
+2025-12-29 15:21:33,577 - INFO - Epoch [2] Batch [60/127] loss: 2.3302 
+2025-12-29 15:21:37,332 - INFO - Epoch [2] Batch [120/127] loss: 2.3503 
+2025-12-29 15:21:38,419 - INFO - Epoch: [2/20]Train loss: 2.4166 | Val loss: 2.3635
+2025-12-29 15:21:38,427 - INFO - --- Generating Sample Story for Epoch 2 ---
+2025-12-29 15:21:39,006 - INFO - Generated Story: A story about  a  woman  in  a  black  shirt  and  black  pants ,  standing  on  a  sidewalk .
+2025-12-29 15:21:39,006 - INFO - Validation loss improved from 2.4650 to 2.3635. Saving Best model.
+2025-12-29 15:21:39,982 - INFO - Checkpoint saved to checkpoints/best.pth (resumption epoch: 2)
+2025-12-29 15:21:40,989 - INFO - Checkpoint saved to checkpoints/latest.pth (resumption epoch: 2)
+2025-12-29 15:21:56,528 - INFO - Epoch [3] Batch [0/3625] loss: 2.3126 
+2025-12-29 15:25:16,811 - INFO - Epoch [3] Batch [1200/3625] loss: 2.5609 
+2025-12-29 15:52:40,123 - INFO - Epoch [3] Batch [2400/3625] loss: 2.0658 
+2025-12-29 15:55:58,561 - INFO - Epoch [3] Batch [3600/3625] loss: 2.4235 
+2025-12-29 15:56:18,775 - INFO - Epoch [3] Batch [0/127] loss: 2.1799 
+2025-12-29 15:56:22,476 - INFO - Epoch [3] Batch [60/127] loss: 2.2831 
+2025-12-29 15:56:26,203 - INFO - Epoch [3] Batch [120/127] loss: 2.2599 
+2025-12-29 15:56:27,247 - INFO - Epoch: [3/20]Train loss: 2.2689 | Val loss: 2.3230
+2025-12-29 15:56:27,247 - INFO - --- Generating Sample Story for Epoch 3 ---
+2025-12-29 15:56:27,788 - INFO - Generated Story: A story about  a  woman  in  a  red  shirt  and  black  pants ,  standing  on  a  sidewalk .
+2025-12-29 15:56:27,799 - INFO - Validation loss improved from 2.3635 to 2.3230. Saving Best model.
+2025-12-29 15:56:28,747 - INFO - Checkpoint saved to checkpoints/best.pth (resumption epoch: 3)
+2025-12-29 15:56:29,736 - INFO - Checkpoint saved to checkpoints/latest.pth (resumption epoch: 3)
+2025-12-29 15:56:44,894 - INFO - Epoch [4] Batch [0/3625] loss: 1.8597 
+2025-12-29 16:00:03,964 - INFO - Epoch [4] Batch [1200/3625] loss: 2.3407 
+2025-12-29 16:03:23,732 - INFO - Epoch [4] Batch [2400/3625] loss: 2.0831 
+2025-12-29 16:06:45,129 - INFO - Epoch [4] Batch [3600/3625] loss: 1.9902 
+2025-12-29 16:07:06,191 - INFO - Epoch [4] Batch [0/127] loss: 2.1437 
+2025-12-29 16:07:09,996 - INFO - Epoch [4] Batch [60/127] loss: 2.3085 
+2025-12-29 16:07:13,810 - INFO - Epoch [4] Batch [120/127] loss: 2.2487 
+2025-12-29 16:07:14,947 - INFO - Epoch: [4/20]Train loss: 2.1626 | Val loss: 2.3172
+2025-12-29 16:07:14,947 - INFO - --- Generating Sample Story for Epoch 4 ---
+2025-12-29 16:07:15,545 - INFO - Generated Story: A story about  a  man  in  a  blue  shirt  and  black  pants ,  standing  on  a  sidewalk .
+2025-12-29 16:07:15,545 - INFO - Validation loss improved from 2.3230 to 2.3172. Saving Best model.
+2025-12-29 16:07:16,539 - INFO - Checkpoint saved to checkpoints/best.pth (resumption epoch: 4)
+2025-12-29 16:07:17,586 - INFO - Checkpoint saved to checkpoints/latest.pth (resumption epoch: 4)
+2025-12-29 16:07:33,314 - INFO - Epoch [5] Batch [0/3625] loss: 2.0509 
+2025-12-29 16:10:53,139 - INFO - Epoch [5] Batch [1200/3625] loss: 2.1130 
+2025-12-29 16:14:12,855 - INFO - Epoch [5] Batch [2400/3625] loss: 2.0025 
+2025-12-29 16:17:32,049 - INFO - Epoch [5] Batch [3600/3625] loss: 1.9045 
+2025-12-29 16:17:51,608 - INFO - Epoch [5] Batch [0/127] loss: 2.2011 
+2025-12-29 16:17:55,322 - INFO - Epoch [5] Batch [60/127] loss: 2.2547 
+2025-12-29 16:17:59,050 - INFO - Epoch [5] Batch [120/127] loss: 2.2686 
+2025-12-29 16:18:00,082 - INFO - Epoch: [5/20]Train loss: 2.0710 | Val loss: 2.3205
+2025-12-29 16:18:00,082 - INFO - --- Generating Sample Story for Epoch 5 ---
+2025-12-29 16:18:00,587 - INFO - Generated Story: A story about  a  woman  in  a  white  shirt  and  black  pants ,  standing  on  a  sidewalk .
+2025-12-29 16:18:00,587 - INFO - Validation loss did not improve. Current best loss: 2.3172 (Patience: 1/7)
+2025-12-29 16:18:01,603 - INFO - Checkpoint saved to checkpoints/latest.pth (resumption epoch: 5)
+2025-12-29 16:18:16,925 - INFO - Epoch [6] Batch [0/3625] loss: 2.1235 
+2025-12-29 16:21:35,634 - INFO - Epoch [6] Batch [1200/3625] loss: 2.0850 
+2025-12-29 16:24:54,934 - INFO - Epoch [6] Batch [2400/3625] loss: 1.9067 
+2025-12-29 16:28:14,377 - INFO - Epoch [6] Batch [3600/3625] loss: 2.0338 
+2025-12-29 16:28:33,966 - INFO - Epoch [6] Batch [0/127] loss: 2.2060 
+2025-12-29 16:28:37,699 - INFO - Epoch [6] Batch [60/127] loss: 2.2951 
+2025-12-29 16:28:41,410 - INFO - Epoch [6] Batch [120/127] loss: 2.2806 
+2025-12-29 16:28:42,447 - INFO - Epoch: [6/20]Train loss: 1.9947 | Val loss: 2.3347
+2025-12-29 16:28:42,447 - INFO - --- Generating Sample Story for Epoch 6 ---
+2025-12-29 16:28:43,049 - INFO - Generated Story: A story about  a  man  in  a  white  shirt  and  black  pants ,  holding  a  black  and  white
+2025-12-29 16:28:43,049 - INFO - Validation loss did not improve. Current best loss: 2.3172 (Patience: 2/7)
+2025-12-29 16:28:44,113 - INFO - Checkpoint saved to checkpoints/latest.pth (resumption epoch: 6)
+2025-12-29 16:29:00,980 - INFO - Epoch [7] Batch [0/3625] loss: 1.8428 
